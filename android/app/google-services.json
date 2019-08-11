@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "217178165036",
+    "firebase_url": "https://frc-3966-scout-test.firebaseio.com",
+    "project_id": "frc-3966-scout-test",
+    "storage_bucket": "frc-3966-scout-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217178165036:android:a7647304bbc10aa6",
+        "android_client_info": {
+          "package_name": "org.lnstempunks.punk_picks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217178165036-jd9dp6dkg745hs0bsj10guceqg08qhf2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqvEHOHI1hQaZB7fhE7lN8h3Xehi7QC5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217178165036-jd9dp6dkg745hs0bsj10guceqg08qhf2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
