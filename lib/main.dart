@@ -6,12 +6,12 @@ import 'package:punk_picks/pages/home.dart';
 void main() {
   runApp(new MaterialApp(
     title: 'Punk Picks',
-    initialRoute: '/verify',
+    initialRoute: '/',
     theme: ThemeData(
       primaryColor: Colors.green[900],
     ),
     routes: {
-      '/verify': (context) => VerifyPage(),
+      '/': (context) => VerifyPage(),
       '/login': (context) => LoginPage(),
       '/home': (context) => HomePage(),
     },

@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:punk_picks/auth.dart';
-import 'package:punk_picks/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class VerifyPage extends StatelessWidget {
+// This page exists in order to bypass login screen after app quit for users who have already signed in
+
+class VerifyPage extends StatefulWidget {
   @override
+  _VerifyPageState createState() => _VerifyPageState();
+}
+
+class _VerifyPageState extends State<VerifyPage> {
+  @override
+  void initState() {
+    super.initState();
+    verifyLogin();
+  }
+
+  Future<void> verifyLogin() async {
+    var user = await FirebaseAuth.instance.currentUser();
+    if (user != null) {
+      Navigator.pushNamed(context, '/home');
+    } else {
+      Navigator.pushNamed(context, '/login');
+    }
+  }
+
+
   Widget build(BuildContext context) {
-    final Auth auth = Provider.of(context).auth;
-    return StreamBuilder<String>(
-      stream: auth.onAuthStateChanged,
-      builder: (context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) {
-          final bool loggedIn = snapshot.hasData;
-          if (loggedIn == true) {
-            Navigator.pushNamed(context, '/home');
-          } else {
-            Navigator.pushNamed(context, '/login');
-          }
-        }
-        return CircularProgressIndicator();
-      },
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }
