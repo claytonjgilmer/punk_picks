@@ -18,12 +18,11 @@ class _VerifyPageState extends State<VerifyPage> {
   Future<void> verifyLogin() async {
     var user = await FirebaseAuth.instance.currentUser();
     if (user != null) {
-      Navigator.pushNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/login');
     } else {
-      Navigator.pushNamed(context, '/login');
+      Navigator.pushReplacementNamed(context, '/login');
     }
   }
-
 
   Widget build(BuildContext context) {
     return Container(

@@ -9,17 +9,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  var user = FirebaseAuth.instance.currentUser();
+  var _user = FirebaseAuth.instance.currentUser();
+  final _LoginFormKey = GlobalKey<FormState>();
 
-  Future<void> _signInAnonymously() async {
+  Future<void> _signIn() async {
     try {
       await FirebaseAuth.instance.signInAnonymously();
     } catch (e) {
       print(e); 
     }
-    if (user != null) {
+    if (_user != null) {
       try {
-        Navigator.pushNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/home');
       } catch (e) {
         print(e);
       }
@@ -29,12 +30,40 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign in')),
-      body: Center(
-        child: RaisedButton(
-          child: Text('Sign in test'),
-          onPressed: _signInAnonymously,
-        ),
+      appBar: AppBar(title: Text('Sign In')),
+      body: ListView(
+        children: <Widget>[
+          Image.asset(
+            'assets/stempunkslogo.png',
+            height: 225,
+            width: 225,
+          ),
+          Form(
+            key: _LoginFormKey,
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    icon: Icon(Icons.mail)
+                  ),
+                ),
+                TextFormField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    icon: Icon(Icons.lock)
+                  )
+                ),
+                RaisedButton(
+                  child: Text('Log In'),
+                  onPressed: null,
+                )
+              ],
+            ),
+          )
+        ]
       ),
     );
   }
