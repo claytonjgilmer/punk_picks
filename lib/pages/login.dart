@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
+import 'package:punk_picks/routes.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,7 +12,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   var _user = FirebaseAuth.instance.currentUser();
-  final _LoginFormKey = GlobalKey<FormState>();
 
   Future<void> _signIn() async {
     try {
@@ -20,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     if (_user != null) {
       try {
-        Navigator.pushReplacementNamed(context, '/home');
+        router.navigateTo(context, '/home', transition: TransitionType.fadeIn);
       } catch (e) {
         print(e);
       }
@@ -38,30 +39,12 @@ class _LoginPageState extends State<LoginPage> {
             height: 225,
             width: 225,
           ),
-          Form(
-            key: _LoginFormKey,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    icon: Icon(Icons.mail)
-                  ),
-                ),
-                TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    icon: Icon(Icons.lock)
-                  )
-                ),
-                RaisedButton(
-                  child: Text('Log In'),
-                  onPressed: null,
-                )
-              ],
-            ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(100, 100, 100, 100),
+            child: RaisedButton(
+              child: Text('Sign in with Google'),
+              onPressed: _signIn,
+            )
           )
         ]
       ),

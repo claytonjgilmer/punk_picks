@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:217178165036:android:a7647304bbc10aa6",
+        "mobilesdk_app_id": "1:217178165036:android:2eb458eedb319a37",
         "android_client_info": {
-          "package_name": "org.lnstempunks.punk_picks"
+          "package_name": "org.lnstempunks.punkpicks"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "217178165036-ouk8d03kmgp94hhfet7oe02o3nheuosb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.lnstempunks.punkpicks",
+            "certificate_hash": "6fa154f6903b1bfcb5baf53cf39a6a43629235f8"
+          }
+        },
         {
           "client_id": "217178165036-jd9dp6dkg745hs0bsj10guceqg08qhf2.apps.googleusercontent.com",
           "client_type": 3
@@ -30,6 +38,13 @@
             {
               "client_id": "217178165036-jd9dp6dkg745hs0bsj10guceqg08qhf2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "217178165036-mbdp0oh6kpiujc13s3gkmdqbidnckapt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.lnstempunks.punkpicks"
+              }
             }
           ]
         }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
+import 'package:punk_picks/routes.dart';
 
 // This page exists in order to bypass login screen after app quit for users who have already signed in
 
@@ -18,9 +20,9 @@ class _VerifyPageState extends State<VerifyPage> {
   Future<void> verifyLogin() async {
     var user = await FirebaseAuth.instance.currentUser();
     if (user != null) {
-      Navigator.pushReplacementNamed(context, '/login');
+      router.navigateTo(context, '/home', transition: TransitionType.fadeIn);
     } else {
-      Navigator.pushReplacementNamed(context, '/login');
+      router.navigateTo(context, '/login', transition: TransitionType.fadeIn);
     }
   }
 
