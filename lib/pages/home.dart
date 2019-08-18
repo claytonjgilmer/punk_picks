@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:punk_picks/routes.dart';
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
@@ -14,15 +18,27 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
-    readLocal();
+    updateUserInfo();
   }
 
-  void readLocal() async {
+  void updateUserInfo() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('displayName', user.displayName);
+    prefs.setString('email', user.email);
+    prefs.setString('photoUrl', user.photoUrl);
     displayName = prefs.getString('displayName');
     email = prefs.getString('email');
     photoUrl = prefs.getString('photoUrl');
-    setState(( ){});
+    setState((){});
+  }
+
+
+  void signOut() {
+    final googleSignIn = GoogleSignIn();
+    FirebaseAuth.instance.signOut();
+    googleSignIn.signOut();
+    router.navigateTo(context, '/login', clearStack: true);
   }
 
   @override
@@ -60,6 +76,10 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Settings'),
               leading: Icon(Icons.settings),
+            ),
+            ListTile(
+              title: Text('Sign Out'),
+              onTap: signOut,
             )
           ],
         ),

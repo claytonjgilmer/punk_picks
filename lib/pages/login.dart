@@ -13,24 +13,20 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  _signIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var _user = await FirebaseAuth.instance.currentUser();
-    final _googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount _googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication _googleAuth = await _googleUser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: _googleAuth.accessToken,
-      idToken: _googleAuth.idToken,
-    );
-    FirebaseAuth.instance.signInWithCredential(credential);
-    if ( _user != null) {
-      await prefs.setString('id', _user.uid);
-      await prefs.setString('displayName', _user.displayName);
-      await prefs.setString('email', _user.email);
-      await prefs.setString('photoUrl', _user.photoUrl);
-
-      router.navigateTo(context, '/home', transition: TransitionType.fadeIn, clearStack: true);
+  signIn() async {
+    try {
+      final googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount googleUser = await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential).whenComplete(() async {
+        router.navigateTo(context, '/home', transition: TransitionType.fadeIn, clearStack: true);
+      });
+    } catch(e) {
+      print(e);
     }
   }
    
@@ -49,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.fromLTRB(100, 40, 100, 100),
             child: RaisedButton(
               child: Text('Sign in with Google'),
-              onPressed: _signIn,
+              onPressed: signIn,
             )
           )
         ]
