@@ -28,20 +28,19 @@ class Model2019 {
 
   // If the bot scored a climb RP
   bool climbRP;
+  
+  // Need this to prevent null errors (?)
+  Model2019({
+		this.sandstormHabLevel,
+		this.sandstormHabSuccess,
+		this.hatchesDuringSandstorm,
+		this.cargoDuringSandstorm,
+		this.hatchesDuringTeleop,
+		this.cargoDuringTeleop,
+    this.maxRocketPlacementHeight,
+		this.endgameHabLevel,
+		this.rocketRP,
+		this.climbRP,
+	});
 
-  // Convert to JSON 
-  Map<String, dynamic> toMap() {
-    return {
-      "sandstormHabLevel" : sandstormHabLevel,
-      "sandstormHabSuccess" : sandstormHabSuccess ? 1 : 0,
-      "hatchesDuringSandstorm" : hatchesDuringSandstorm,
-      "cargoDuringSandstorm" : cargoDuringSandstorm,
-      "hatchesDuringTeleop" : hatchesDuringTeleop,
-      "cargoDuringTeleop" : cargoDuringTeleop,
-      "maxRocketPlacementHeight" : maxRocketPlacementHeight,
-      "endgameHabLevel" : endgameHabLevel,
-      "rocketRP" : rocketRP ? 1 : 0,
-      "climbRP" : climbRP ? 1 : 0
-    };
-  }
 }

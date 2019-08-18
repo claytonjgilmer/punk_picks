@@ -18,14 +18,11 @@ class ModelMatch {
   // Alliance color.
   String allianceColor;
 
-  // Convert to JSON for firebase upload
-  Map<String, dynamic> toMap() {
-    return {
-      "scoutName" : this.scoutName,
-      "matchType" : this.matchType,
-      "matchNumber" : this.matchNumber,
-      "teamNumber" : this.teamNumber,
-      "alliance" : this.allianceColor
-    };
-  }
+  ModelMatch({
+    this.scoutName,
+    this.matchType,
+    this.matchNumber,
+    this.teamNumber,
+    this.allianceColor
+  });
 }
