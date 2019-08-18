@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fluro/fluro.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:punk_picks/routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,7 +13,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  Future<void> _signIn() async {
+  _signIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     var _user = await FirebaseAuth.instance.currentUser();
     final _googleSignIn = GoogleSignIn();
     final GoogleSignInAccount _googleUser = await _googleSignIn.signIn();
@@ -23,6 +25,11 @@ class _LoginPageState extends State<LoginPage> {
     );
     FirebaseAuth.instance.signInWithCredential(credential);
     if ( _user != null) {
+      await prefs.setString('id', _user.uid);
+      await prefs.setString('displayName', _user.displayName);
+      await prefs.setString('email', _user.email);
+      await prefs.setString('photoUrl', _user.photoUrl);
+
       router.navigateTo(context, '/home', transition: TransitionType.fadeIn, clearStack: true);
     }
   }

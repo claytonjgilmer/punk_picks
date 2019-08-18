@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String displayName = '';
+  String email = '';
+  String photoUrl = '';
+
+
+  void initState() {
+    super.initState();
+    readLocal();
+  }
+
+  void readLocal() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    displayName = prefs.getString('displayName');
+    email = prefs.getString('email');
+    photoUrl = prefs.getString('photoUrl');
+    setState(( ){});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,8 +35,11 @@ class HomePage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text('Clayton Gilmer'),
-              accountEmail: Text('netsecplanes@gmail.com'),
+              accountName: Text(displayName),
+              accountEmail: Text(email),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(photoUrl),
+              ),
             ),
             ListTile(
               title: Text('Matches'),
