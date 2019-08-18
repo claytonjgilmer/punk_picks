@@ -18,9 +18,9 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   verifyLogin() async {
-    var _user = await FirebaseAuth.instance.currentUser();
-    if (_user != null) {
-      router.navigateTo(context, '/login', transition: TransitionType.fadeIn, clearStack: true);
+    var user = await FirebaseAuth.instance.currentUser();
+    if (user != null) {
+      router.navigateTo(context, '/home', transition: TransitionType.fadeIn, clearStack: true);
     } else {
       router.navigateTo(context, '/login', transition: TransitionType.fadeIn, clearStack: true);
     }

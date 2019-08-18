@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -38,7 +38,15 @@ class _HomePageState extends State<HomePage> {
     final googleSignIn = GoogleSignIn();
     FirebaseAuth.instance.signOut();
     googleSignIn.signOut();
-    router.navigateTo(context, '/login', clearStack: true);
+    router.navigateTo(context, '/login', transition: TransitionType.fadeIn, clearStack: true);
+  }
+
+  void navigateToMatchScout() {
+    router.navigateTo(context, '/match-scout', transition: TransitionType.fadeIn);
+  }
+
+  void navigateToPitScout() {
+    router.navigateTo(context, '/pit-scout', transition: TransitionType.fadeIn);
   }
 
   @override
@@ -48,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         title: Text('Home'),
       ),
       drawer: Drawer(
-        child: ListView(
+        child: Column(
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text(displayName),
@@ -86,27 +94,33 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: <Widget>[
-          Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  title: Text('Scout a match'),
-                  subtitle: Text('Start scouting a new match.'),
-                  leading: Icon(Icons.gamepad),
-                )
-              ],
+          InkWell(
+            onTap: navigateToMatchScout,
+            child: Card(
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Scout a match'),
+                    subtitle: Text('Start scouting a new match.'),
+                    leading: Icon(Icons.gamepad),
+                  )
+                ],
+              ),
             ),
           ),
-          Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  title: Text('Scout a pit'),
-                  subtitle: Text('Start scouting a team\'s pit.'),
-                  leading: Icon(Icons.flag),
-                )
-              ],
-            ),
+         InkWell(
+           onTap: navigateToPitScout,
+           child: Card(
+             child: Column(
+               children: <Widget>[
+                 ListTile(
+                   title: Text('Scout a pit'),
+                   subtitle: Text('Start scouting a team\'s pit.'),
+                   leading: Icon(Icons.flag),
+                 )
+               ],
+             ),
+           ),
           )
         ],
       ),
