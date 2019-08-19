@@ -28,7 +28,7 @@ class Model2019 {
 
   // If the bot scored a climb RP
   bool climbRP;
-  
+
   Model2019({
 		this.sandstormHabLevel,
 		this.sandstormHabSuccess,

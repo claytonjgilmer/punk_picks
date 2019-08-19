@@ -3,7 +3,7 @@ class ModelMatch {
   String scoutName;
 
   // Type of match.
-  // Qualifiers ('q')
+  // Qualification ('q')
   // Quarterfinals ('qf')
   // Semifinals ('sf')
   // Finals ('f')
