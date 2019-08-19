@@ -18,11 +18,15 @@ class ModelMatch {
   // Alliance color.
   String allianceColor;
 
+  // Scout notes.
+  String scoutNotes;
+
   ModelMatch({
     this.scoutName,
     this.matchType,
     this.matchNumber,
     this.teamNumber,
-    this.allianceColor
+    this.allianceColor,
+    this.scoutNotes,
   });
 }

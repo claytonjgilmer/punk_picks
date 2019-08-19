@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluro/fluro.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,17 @@ class _HomePageState extends State<HomePage> {
   String email = '';
   String photoUrl = '';
 
-
   void initState() {
     super.initState();
+    updateGlobalInfo();
     updateUserInfo();
+  }
+
+  void updateGlobalInfo() async {
+    DocumentSnapshot snapshot = await Firestore.instance.collection('global').document('client').get();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String currComp = snapshot.data['currComp'].toString();
+    prefs.setString('currComp', currComp);
   }
 
   void updateUserInfo() async {
@@ -33,7 +41,6 @@ class _HomePageState extends State<HomePage> {
     setState((){});
   }
 
-
   void signOut() {
     final googleSignIn = GoogleSignIn();
     FirebaseAuth.instance.signOut();
@@ -42,11 +49,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void navigateToMatchScout() {
-    router.navigateTo(context, '/match-scout', transition: TransitionType.fadeIn);
+    router.navigateTo(context, '/match_scout', transition: TransitionType.fadeIn);
   }
 
   void navigateToPitScout() {
-    router.navigateTo(context, '/pit-scout', transition: TransitionType.fadeIn);
+    router.navigateTo(context, '/pit_scout', transition: TransitionType.fadeIn);
   }
 
   @override

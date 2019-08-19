@@ -29,7 +29,6 @@ class Model2019 {
   // If the bot scored a climb RP
   bool climbRP;
   
-  // Need this to prevent null errors (?)
   Model2019({
 		this.sandstormHabLevel,
 		this.sandstormHabSuccess,
@@ -42,5 +41,4 @@ class Model2019 {
 		this.rocketRP,
 		this.climbRP,
 	});
-
 }

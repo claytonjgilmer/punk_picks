@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:punk_picks/pages/login.dart';
 import 'package:punk_picks/pages/home.dart';
-import 'package:punk_picks/pages/matchscout.dart';
-import 'package:punk_picks/pages/pitscout.dart';
+import 'package:punk_picks/pages/match_scout.dart';
+import 'package:punk_picks/pages/pit_scout.dart';
 
 final router = Router();
 
@@ -17,11 +17,11 @@ void defineRoutes() {
     return new HomePage();
   }));  
 
-  router.define('/match-scout', handler: new Handler(handlerFunc: (BuildContext context, params) {
+  router.define('/match_scout', handler: new Handler(handlerFunc: (BuildContext context, params) {
     return new MatchScoutPage();
   }));
 
-  router.define('/pit-scout', handler: new Handler(handlerFunc: (BuildContext context, params) {
+  router.define('/pit_scout', handler: new Handler(handlerFunc: (BuildContext context, params) {
     return new PitScoutPage();
   }));
 
