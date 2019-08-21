@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:punk_picks/pages/login.dart';
 import 'package:punk_picks/pages/home.dart';
-import 'package:punk_picks/pages/match_scout.dart';
-import 'package:punk_picks/pages/pit_scout.dart';
+import 'package:punk_picks/pages/forms/match_scout_2019.dart';
+import 'package:punk_picks/pages/forms/pit_scout_2019.dart';
 
 final router = Router();
 

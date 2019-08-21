@@ -8,4 +8,4 @@ This project needs Flutter and the Android SDK installed in order to compile. I 
 
 ## Special Thanks
 
-Uses the CounterFormField and NumberFormField components from dhall1's ScoutingApp project.
+Uses the CounterFormField, NumberFormField, and a couple other design decisions (scouting model structure) from dhall1's ScoutingApp project. 

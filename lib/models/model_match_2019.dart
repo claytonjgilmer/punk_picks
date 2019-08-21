@@ -1,4 +1,28 @@
-class Model2019 {
+class ModelMatch2019 {
+  // Name (first and last) of scout.
+  String scoutName;
+
+  // Type of match.
+  // Qualification ('q')
+  // Quarterfinals ('qf')
+  // Semifinals ('sf')
+  // Finals ('f')
+  String matchType;
+
+  // Match number.
+  int matchNumber;
+
+  // Team number.
+  int teamNumber;
+
+  // Alliance color.
+  String allianceColor;
+
+  // Scout notes.
+  String scoutNotes;
+
+///////////////////////////////////////////////////////////
+
   // Starting level on HAB.
   int sandstormHabLevel;
 
@@ -29,7 +53,12 @@ class Model2019 {
   // If the bot scored a climb RP
   bool climbRP;
 
-  Model2019({
+  ModelMatch2019({
+    this.scoutName,
+    this.matchType,
+    this.matchNumber,
+    this.allianceColor,
+    this.scoutNotes,
 		this.sandstormHabLevel,
 		this.sandstormHabSuccess,
 		this.hatchesDuringSandstorm,
