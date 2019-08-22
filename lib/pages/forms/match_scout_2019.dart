@@ -112,6 +112,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                    matchData.sandstormHabLevel = value; 
                   });
                 },
+                decoration: InputDecoration(labelText: 'Starting HAB level'),
                 items: <DropdownMenuItem<int>>[
                   DropdownMenuItem<int>(
                     value: 1,
@@ -122,6 +123,19 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                     child: Text('Level 2'),
                   )
                 ],
+              ),
+              CheckboxListTile(
+                title: Text('Successfully left HAB platform'),
+                value: matchData.sandstormHabSuccess,
+                onChanged: (bool value) {
+                  setState(() {
+                    matchData.sandstormHabSuccess = value;
+                  });
+                },
+              ),
+              CounterFormField(
+                title: 'Hatches during sandstorm'
+                
               )
             ],
           ),
