@@ -1,4 +1,4 @@
-package org.lnstempunks.punk_picks
+package org.lnstempunks.punkpicks
 
 import android.os.Bundle
 

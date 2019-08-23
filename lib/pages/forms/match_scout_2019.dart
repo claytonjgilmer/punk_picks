@@ -34,7 +34,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
     String teamNumber = formKey.currentState.value['teamNumber'].toString();
     DocumentReference matchDocument = Firestore.instance.collection('events/$currYear/$currComp/$matchType$matchNumber/teams').document(teamNumber);
     DocumentSnapshot snapshot = await matchDocument.get().catchError((e) {
-      debugPrint(e);
+      debugPrint('ERROR: ' + e.toString());
       debugPrint('FIRESTORE DOWNLOAD ERROR, CHECK YOUR CONNECTION');
       Scaffold.of(context).showSnackBar(
         SnackBar(
@@ -45,9 +45,8 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
     if (!snapshot.exists) {
       await matchDocument.setData(formKey.currentState.value)
       .then((_) => navigateHome(context))
-      .catchError(
-        (e) {
-          debugPrint(e);
+      .catchError((e) {
+          debugPrint('ERROR: ' + e.toString());
           debugPrint('FIRESTORE UPLOAD ERROR, CHECK YOUR CONNECTION');
           Scaffold.of(context).showSnackBar(
             SnackBar(
