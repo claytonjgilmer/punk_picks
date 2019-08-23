@@ -1,7 +1,9 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:punk_picks/routes.dart';
 
 class MatchScoutPage extends StatefulWidget {
   _MatchScoutPageState createState() => _MatchScoutPageState();
@@ -12,7 +14,6 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
   String currYear = '';
   String currComp = '';
 
-  @override
   void initState() {
     super.initState();
     getCurrData();
@@ -24,14 +25,43 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
     currComp = prefs.getString('currComp');
   }
 
-  void submitForm() {
-    debugPrint("CURRENT COMPETITION: " + currComp);
-    debugPrint("FORM DATA: " + formKey.currentState.value.toString());
+  void submitForm(context) async {
+    debugPrint('CURRENT YEAR: ' + currYear);
+    debugPrint('CURRENT COMPETITION: ' + currComp);
+    debugPrint('FORM DATA: ' + formKey.currentState.value.toString());
     String matchType = formKey.currentState.value['matchType'];
     String matchNumber = formKey.currentState.value['matchNumber'].toString();
     String teamNumber = formKey.currentState.value['teamNumber'].toString();
-    DocumentReference document = Firestore.instance.collection('events/$currYear/$currComp/$matchType$matchNumber/teams').document(teamNumber);
-    document.setData(formKey.currentState.value);
+    DocumentReference matchDocument = Firestore.instance.collection('events/$currYear/$currComp/$matchType$matchNumber/teams').document(teamNumber);
+    DocumentSnapshot snapshot = await matchDocument.get();
+    if (!snapshot.exists) {
+      await matchDocument.setData(formKey.currentState.value);
+      navigateHome(context);
+    }
+    else {
+      debugPrint('SCOUTING DATA ALREADY EXISTS IN FIRESTORE! HOW DID YOU MANAGE TO SCREW UP THIS BADLY?');
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Scouting results for this match and team already exist.'),
+          duration: Duration(seconds: 10),
+        )
+      );
+    }
+  }
+
+  void navigateHome(context) async {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Successfully submitted scouting results!'),
+        action: SnackBarAction(
+          label: 'Home',
+          onPressed: () {
+            router.navigateTo(context, '/home', transition: TransitionType.fadeIn);
+          },
+        ),
+        duration: Duration(seconds: 20),
+      )
+    );
   }
 
   @override
@@ -197,7 +227,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                     onPressed: () {
                       formKey.currentState.save();
                       if (formKey.currentState.validate()) {
-                        submitForm();
+                        submitForm(context);
                       } else {
                         debugPrint('FORM IS INVALID!');
                         Scaffold.of(context).showSnackBar(
