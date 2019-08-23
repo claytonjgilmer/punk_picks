@@ -33,10 +33,29 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
     String matchNumber = formKey.currentState.value['matchNumber'].toString();
     String teamNumber = formKey.currentState.value['teamNumber'].toString();
     DocumentReference matchDocument = Firestore.instance.collection('events/$currYear/$currComp/$matchType$matchNumber/teams').document(teamNumber);
-    DocumentSnapshot snapshot = await matchDocument.get();
+    DocumentSnapshot snapshot = await matchDocument.get().catchError((e) {
+      debugPrint(e);
+      debugPrint('FIRESTORE DOWNLOAD ERROR, CHECK YOUR CONNECTION');
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Download error, check your wifi or data connection'),
+        )
+      );
+    });
     if (!snapshot.exists) {
-      await matchDocument.setData(formKey.currentState.value);
-      navigateHome(context);
+      await matchDocument.setData(formKey.currentState.value)
+      .then((_) => navigateHome(context))
+      .catchError(
+        (e) {
+          debugPrint(e);
+          debugPrint('FIRESTORE UPLOAD ERROR, CHECK YOUR CONNECTION');
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Upload error, check your wifi or data connection.'),
+              duration: Duration(seconds: 10),
+            )
+          );
+        });
     }
     else {
       debugPrint('SCOUTING DATA ALREADY EXISTS IN FIRESTORE! HOW DID YOU MANAGE TO SCREW UP THIS BADLY?');
