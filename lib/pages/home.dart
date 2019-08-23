@@ -25,7 +25,9 @@ class _HomePageState extends State<HomePage> {
   void updateGlobalInfo() async {
     DocumentSnapshot snapshot = await Firestore.instance.collection('global').document('client').get();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String currYear = snapshot.data['currYear'].toString();
     String currComp = snapshot.data['currComp'].toString();
+    prefs.setString('currYear', currYear);
     prefs.setString('currComp', currComp);
   }
 
