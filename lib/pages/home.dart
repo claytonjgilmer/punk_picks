@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fluro/fluro.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:punk_picks/routes.dart';
 
@@ -18,17 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
-    updateGlobalInfo();
     updateUserInfo();
-  }
-
-  void updateGlobalInfo() async {
-    DocumentSnapshot snapshot = await Firestore.instance.collection('global').document('client').get();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String currYear = snapshot.data['currYear'].toString();
-    String currComp = snapshot.data['currComp'].toString();
-    prefs.setString('currYear', currYear);
-    prefs.setString('currComp', currComp);
   }
 
   void updateUserInfo() async {
@@ -71,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               accountName: Text(displayName),
               accountEmail: Text(email),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage(photoUrl),
+                backgroundImage: CachedNetworkImageProvider(photoUrl),
               ),
             ),
             ListTile(
@@ -89,10 +79,6 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Second Pick'),
               leading: Icon(Icons.looks_two),
-            ),
-            ListTile(
-              title: Text('Settings'),
-              leading: Icon(Icons.settings),
             ),
             ListTile(
               title: Text('Sign Out'),

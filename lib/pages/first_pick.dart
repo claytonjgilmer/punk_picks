@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-class PitScoutPage extends StatefulWidget {
-  _PitScoutPageState createState() => _PitScoutPageState();
+class FirstPickPage extends StatefulWidget {
+  _FirstPickPageState createState() => _FirstPickPageState();
 }
 
-class _PitScoutPageState extends State<PitScoutPage> {
+class _FirstPickPageState extends State<FirstPickPage> {
+
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pit Scout Form')
+        title: Text('First Pick List'),
       ),
     );
   }

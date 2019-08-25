@@ -6,7 +6,6 @@ import 'package:punk_picks/routes.dart';
 // This page exists in order to bypass login screen after app quit for users who have already signed in
 
 class VerifyPage extends StatefulWidget {
-  @override
   _VerifyPageState createState() => _VerifyPageState();
 }
 

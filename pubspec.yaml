@@ -25,6 +25,7 @@ dependencies:
   shared_preferences: ^0.5.3+4
   flutter_form_builder: ^3.1.4
   fluro: ^1.5.1
+  cached_network_image: ^1.1.1
 
 dev_dependencies:
   flutter_test:

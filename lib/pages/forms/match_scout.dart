@@ -1,6 +1,5 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluro/fluro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:punk_picks/routes.dart';
@@ -11,28 +10,17 @@ class MatchScoutPage extends StatefulWidget {
 
 class _MatchScoutPageState extends State<MatchScoutPage> {
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
-  String currYear = '';
-  String currComp = '';
-
+ 
   void initState() {
     super.initState();
-    getCurrData();
-  }
-
-  void getCurrData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    currYear = prefs.getString('currYear');
-    currComp = prefs.getString('currComp');
   }
 
   void submitForm(context) async {
-    debugPrint('CURRENT YEAR: ' + currYear);
-    debugPrint('CURRENT COMPETITION: ' + currComp);
     debugPrint('FORM DATA: ' + formKey.currentState.value.toString());
     String matchType = formKey.currentState.value['matchType'];
     String matchNumber = formKey.currentState.value['matchNumber'].toString();
     String teamNumber = formKey.currentState.value['teamNumber'].toString();
-    DocumentReference matchDocument = Firestore.instance.collection('events/$currYear/$currComp/$matchType$matchNumber/teams').document(teamNumber);
+    DocumentReference matchDocument = Firestore.instance.collection('matches/$matchType$matchNumber/teams').document(teamNumber);
     DocumentSnapshot snapshot = await matchDocument.get().catchError((e) {
       debugPrint('ERROR: ' + e.toString());
       debugPrint('FIRESTORE DOWNLOAD ERROR, CHECK YOUR CONNECTION');
@@ -71,13 +59,13 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
     Scaffold.of(context).showSnackBar(
       SnackBar(
         content: Text('Successfully submitted scouting results!'),
+        duration: Duration(seconds: 10),
         action: SnackBarAction(
           label: 'Home',
           onPressed: () {
             router.navigateTo(context, '/home', transition: TransitionType.fadeIn);
           },
         ),
-        duration: Duration(seconds: 20),
       )
     );
   }
