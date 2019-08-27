@@ -30,8 +30,8 @@ class _PitScoutPageState extends State<PitScoutPage> {
                       'scoutName': '',
                       // teamNumber : 0,
                       'driveTrain': 'tank',
-                      'wheelNumber': 4,
-                      'progLang': '',
+                      'progLang': 'java',
+                      'hasOmniWheel': false,
                       'hasCamera': false,
                       'photoUrl': '',
                     },
@@ -62,7 +62,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
                           items: [
                             DropdownMenuItem(
                               value: 'tank',
-                              child: Text('Tank'),
+                              child: Text('Tank/West Coast'),
                             ),
                             DropdownMenuItem(
                               value: 'mecanum',
@@ -77,6 +77,44 @@ class _PitScoutPageState extends State<PitScoutPage> {
                               child: Text('Other'),
                             )
                           ],
+                        ),
+                        FormBuilderDropdown(
+                          attribute: 'progLang',
+                          decoration: InputDecoration(labelText: 'Programming Language'),
+                          items: [
+                            DropdownMenuItem(
+                              value: 'java',
+                              child: Text('Java'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'cpp',
+                              child: Text('C++'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'labview',
+                              child: Text('LabVIEW'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'python',
+                              child: Text('Python'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'other',
+                              child: Text('Other'),
+                            )
+                          ],
+                        ),
+                        FormBuilderCheckbox(
+                          attribute: 'hasOmniWheel',
+                          label: Text('Has Omni Wheels?'),
+                        ),
+                        FormBuilderCheckbox(
+                          attribute: 'hasCamera',
+                          label: Text('Has Camera(s)?'),
+                        ),
+                        FormBuilderCustomField(
+                          attribute: 'photoUrl',
+                          //formField: ,
                         )
                       ],
                     ),

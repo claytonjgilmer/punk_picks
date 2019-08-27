@@ -44,5 +44,17 @@ void defineRoutes() {
   router.define('/second_pick', handler: new Handler(handlerFunc: (BuildContext context, params) {
     return new SecondPickPage();
   }));
+/*
+  router.define('/match_summary/:matchNumber', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new MatchSummaryPage(params['matchNumber'][0]);
+  }));
 
+  router.define('/team_summary/:teamNumber', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new TeamSummaryPage(params['teamNumber'][0]);
+  }));
+
+  router.define('/pit_summary/:teamNumber', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    return new PitSummaryPage(params['teamNumber'][0]);
+  }));
+*/
 }
