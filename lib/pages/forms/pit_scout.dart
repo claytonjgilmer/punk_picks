@@ -15,9 +15,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Pit Scout Form')
-      ),
+      appBar: AppBar(title: Text('Pit Scout Form')),
       body: Builder(
         builder: (BuildContext context) {
           return SingleChildScrollView(
@@ -29,13 +27,13 @@ class _PitScoutPageState extends State<PitScoutPage> {
                     key: formKey,
                     autovalidate: true,
                     initialValue: {
-                      'scoutName' : '',
+                      'scoutName': '',
                       // teamNumber : 0,
-                      'driveTrain' : '',
-                      'wheelNumber' : 4,
-                      'progLang' : '',
-                      'hasCamera' : false,
-                      'photoUrl' : '',
+                      'driveTrain': 'tank',
+                      'wheelNumber': 4,
+                      'progLang': '',
+                      'hasCamera': false,
+                      'photoUrl': '',
                     },
                     child: Column(
                       children: <Widget>[
@@ -59,22 +57,23 @@ class _PitScoutPageState extends State<PitScoutPage> {
                         ),
                         FormBuilderDropdown(
                           attribute: 'driveTrain',
-                          decoration: InputDecoration(labelText: 'Drivetrain Type'),
+                          decoration:
+                              InputDecoration(labelText: 'Drivetrain Type'),
                           items: [
                             DropdownMenuItem(
-                              value: 't',
+                              value: 'tank',
                               child: Text('Tank'),
                             ),
                             DropdownMenuItem(
-                              value: 'm',
+                              value: 'mecanum',
                               child: Text('Mecanum'),
                             ),
                             DropdownMenuItem(
-                              value: 's',
+                              value: 'swerve',
                               child: Text('Swerve'),
                             ),
                             DropdownMenuItem(
-                              value: 'o',
+                              value: 'other',
                               child: Text('Other'),
                             )
                           ],

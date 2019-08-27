@@ -48,6 +48,10 @@ class _HomePageState extends State<HomePage> {
     router.navigateTo(context, '/pit_scout', transition: TransitionType.fadeIn);
   }
 
+  void navigateToTeamList() {
+    router.navigateTo(context, '/team_list', transition: TransitionType.fadeIn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +75,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Teams'),
               leading: Icon(Icons.people),
+              onTap: navigateToTeamList,
             ),
             ListTile(
               title: Text('First Pick'),
@@ -81,7 +86,15 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.looks_two),
             ),
             ListTile(
+              title: Text('Settings'),
+              leading: Icon(Icons.settings),
+            ),
+            Divider(
+              height: 20,
+            ),
+            ListTile(
               title: Text('Sign Out'),
+              leading: Icon(Icons.arrow_back),
               onTap: signOut,
             )
           ],
