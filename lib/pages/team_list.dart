@@ -25,6 +25,7 @@ class _TeamListPageState extends State<TeamListPage> {
               return new Center(child: CircularProgressIndicator());
             default: 
               return new ListView(
+                physics: ScrollPhysics(),
                 children: snapshot.data.documents.map((DocumentSnapshot document){ 
                   return new Column(
                     children: <Widget>[
