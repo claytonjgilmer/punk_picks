@@ -26,8 +26,8 @@ class _PitScoutPageState extends State<PitScoutPage> {
   Future<String> uploadImage(File image) async {
     StorageReference storageReference = FirebaseStorage.instance.ref().child('pit').child(image.lastModifiedSync().toString());
     StorageUploadTask storageUploadTask = storageReference.putFile(image);
-    await storageUploadTask.onComplete;
-    String photoUrl = await storageReference.getDownloadURL();
+    StorageTaskSnapshot storageTaskSnapshot = await storageUploadTask.onComplete; 
+    String photoUrl = await storageTaskSnapshot.ref.getDownloadURL();
     return photoUrl;
   }
 
@@ -157,9 +157,9 @@ class _PitScoutPageState extends State<PitScoutPage> {
                                 ],
                               );
                             },
-                            onSaved: (value) async {
+                            onSaved: (_) async {
                               String photoUrl = await uploadImage(_image);
-                              value = photoUrl;
+                              formKey.currentState.setAttributeValue('photoUrl', photoUrl);
                             },
                           ),
                           validators: [
@@ -173,7 +173,6 @@ class _PitScoutPageState extends State<PitScoutPage> {
                     child: Text('Submit'),
                     onPressed: () {
                       formKey.currentState.save();
-                      debugPrint('FORM KEY: ' + formKey.currentState.value.toString());
                     },
                   )
                 ],
