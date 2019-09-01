@@ -16,7 +16,6 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
   }
 
   void submitForm(context) async {
-    debugPrint('FORM DATA: ' + formKey.currentState.value.toString());
     String matchType = formKey.currentState.value['matchType'];
     String matchNumber = formKey.currentState.value['matchNumber'].toString();
     String teamNumber = formKey.currentState.value['teamNumber'].toString();
@@ -82,7 +81,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                 child: Column(children: <Widget>[
                   FormBuilder(
                     key: formKey,
-                    autovalidate: true,
+                    autovalidate: false,
                     initialValue: {
                       'scoutName': '',
                       'matchType': 'q',
