@@ -36,6 +36,11 @@ class _PitScoutPageState extends State<PitScoutPage> {
     StorageUploadTask storageUploadTask = storageReference.putFile(image);
     StorageTaskSnapshot storageTaskSnapshot =
         await storageUploadTask.onComplete;
+    do {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text('Uploading...'),
+      ));
+    } while (storageUploadTask.isInProgress);
     String photoUrl = await storageTaskSnapshot.ref.getDownloadURL();
     return photoUrl;
   }
@@ -106,7 +111,6 @@ class _PitScoutPageState extends State<PitScoutPage> {
                       // teamNumber : 0,  see match_scout.dart as to why this is commented out
                       'driveTrain': 'tank',
                       'progLang': 'java',
-                      'hasManueverWheel': false,
                       'hasCamera': false,
                       'imageRef': '',
                       'imageUrl': '',
@@ -138,7 +142,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
                           items: [
                             DropdownMenuItem(
                               value: 'tank',
-                              child: Text('Tank/West Coast'),
+                              child: Text('Tank'),
                             ),
                             DropdownMenuItem(
                               value: 'mecanum',
@@ -182,12 +186,8 @@ class _PitScoutPageState extends State<PitScoutPage> {
                           ],
                         ),
                         FormBuilderCheckbox(
-                          attribute: 'hasManueverWheel',
-                          label: Text('Has Mecanum/Omni wheels?'),
-                        ),
-                        FormBuilderCheckbox(
                           attribute: 'hasCamera',
-                          label: Text('Has Camera(s)?'),
+                          label: Text('Has camera(s)?'),
                         ),
                         FormBuilderCustomField(
                           attribute: 'imageRef',
@@ -205,7 +205,8 @@ class _PitScoutPageState extends State<PitScoutPage> {
                                     onPressed: () async {
                                       File image = await pickImage();
                                       if (image != null) {
-                                        field.setValue(image.path); //for some reason this generates a warning, not sure how else to do this
+                                        field.setValue(image
+                                            .path); //for some reason this generates a warning, not sure how else to do this
                                         setState(() {
                                           imageTaken = 'Image has been saved.';
                                           _image = image;

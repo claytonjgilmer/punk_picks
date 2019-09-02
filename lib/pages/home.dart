@@ -48,6 +48,10 @@ class _HomePageState extends State<HomePage> {
     router.navigateTo(context, '/pit_scout', transition: TransitionType.fadeIn);
   }
 
+  void navigateToMatchList() {
+    router.navigateTo(context, '/match_list', transition: TransitionType.fadeIn);
+  }
+
   void navigateToTeamList() {
     router.navigateTo(context, '/team_list', transition: TransitionType.fadeIn);
   }
@@ -71,6 +75,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Matches'),
               leading: Icon(Icons.calendar_today),
+              onTap: navigateToMatchList,
             ),
             ListTile(
               title: Text('Teams'),
