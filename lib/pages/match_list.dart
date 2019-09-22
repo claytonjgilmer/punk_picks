@@ -11,6 +11,10 @@ class _MatchListPageState extends State<MatchListPage> {
     super.initState();
   }
 
+  navigateToMatchPage(int matchNumber) async {
+    router.navigateTo(context, '/match_summary:$matchNumber');
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -47,7 +51,7 @@ class _MatchListPageState extends State<MatchListPage> {
                             .toUpperCase() +
                         snapshot.data.documents[index].data['matchNumber']
                             .toString()),
-                    onTap: null,
+                    onTap: navigateToMatchPage(snapshot.data.documents[index].data['matchNumber'])
                   );
                 },
               );
