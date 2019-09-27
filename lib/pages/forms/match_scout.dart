@@ -20,8 +20,8 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
     String matchNumber = formKey.currentState.value['matchNumber'].toString();
     String teamNumber = formKey.currentState.value['teamNumber'].toString();
     DocumentReference matchDocument = Firestore.instance
-        .collection('matches/$matchType$matchNumber/teams')
-        .document(teamNumber);
+        .collection('rmd')
+        .document(teamNumber + matchType + matchNumber);
     DocumentSnapshot snapshot = await matchDocument.get().catchError((e) {
       debugPrint('ERROR: ' + e.toString());
       debugPrint('FIRESTORE DOWNLOAD ERROR, CHECK YOUR CONNECTION');
@@ -84,13 +84,15 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                     autovalidate: false,
                     initialValue: {
                       'scoutName': '',
-                      'matchType': 'q',
+                      'matchType': 'qm',
                       // HACK: matchNumber and teamNumber attributes don't like being declared as int (FormBuilderTextField throws an error
                       // due to expecting a string), so commenting out and letting flutter infer datatype
                       //'matchNumber' : 0,
                       //'teamNumber' : 0,
                       'sandstormHabLevel': 1,
                       'sandstormHabSuccess': false,
+                      'hatchScoredSandstorm': 0,
+                      'cargoScoredSandstorm': 0,
                       'hatchScoredL1': 0,
                       'hatchScoredL2': 0,
                       'hatchScoredL3': 0,
@@ -99,8 +101,8 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                       'cargoScoredL3': 0,
                       'endgameHabLevel': 1,
                       'endgameHabSuccess': false,
-                      'rocketRP': false,
-                      'climbRP': false,
+                      'defenseQuality': 0,
+                      'driveQuality': 0,
                       'scoutNotes': '',
                     },
                     child: Column(
@@ -117,7 +119,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                           decoration: InputDecoration(labelText: 'Match Type'),
                           items: [
                             DropdownMenuItem(
-                              value: 'q',
+                              value: 'qm',
                               child: Text('Qualification'),
                             ),
                             DropdownMenuItem(
@@ -157,6 +159,11 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                             FormBuilderValidators.maxLength(4),
                           ],
                         ),
+                        Divider(
+                          thickness: 2,
+                          height: 75,
+                          color: Color.fromRGBO(0, 0, 0, 0),
+                        ),
                         FormBuilderRadio(
                           attribute: 'sandstormHabLevel',
                           decoration:
@@ -174,6 +181,23 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                           attribute: 'sandstormHabSuccess',
                           label:
                               Text('Successfully left HAB during sandstorm?'),
+                        ),
+                        FormBuilderStepper(
+                          attribute: 'hatchScoredSandstorm',
+                          decoration: InputDecoration(
+                            labelText: 'Hatches scored during sandstorm'
+                          ),
+                        ),
+                        FormBuilderStepper(
+                          attribute: 'cargoScoredSandstorm',
+                          decoration: InputDecoration(
+                            labelText: 'Cargo scored during sandstorm'
+                          ),
+                        ),
+                        Divider(
+                          thickness: 2,
+                          height: 75,
+                          color: Color.fromRGBO(0, 0, 0, 0),
                         ),
                         FormBuilderStepper(
                           attribute: 'hatchScoredL1',
@@ -204,11 +228,19 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                           decoration:
                               InputDecoration(labelText: 'Cargo scored on L3'),
                         ),
+                        Divider(
+                          thickness: 2,
+                          height: 75,
+                          color: Color.fromRGBO(0, 0, 0, 0),
+                        ),
                         FormBuilderRadio(
                           attribute: 'endgameHabLevel',
                           decoration:
                               InputDecoration(labelText: 'Endgame HAB Level'),
                           options: [
+                            FormBuilderFieldOption(
+                              value: 0,
+                            ),
                             FormBuilderFieldOption(
                               value: 1,
                             ),
@@ -223,7 +255,30 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                         FormBuilderCheckbox(
                           attribute: 'endgameHabSuccess',
                           label: Text(
-                              'Successfully parked on HAB during endgame?'),
+                              'Successful climb on HAB during endgame?'),
+                        ),
+                        Divider(
+                          thickness: 2,
+                          height: 75,
+                          color: Color.fromRGBO(0, 0, 0, 0),
+                        ),
+                        FormBuilderStepper(
+                          attribute: 'defenseQuality',
+                          decoration: InputDecoration(
+                            labelText: 'How well did they play defense? (0 if no defense)',
+                          ),
+                          validators: [
+                            FormBuilderValidators.max(5)
+                          ],
+                        ),
+                        FormBuilderStepper(
+                          attribute: 'drivingQuality',
+                          decoration: InputDecoration(
+                            labelText: 'Rate their driving skills.'
+                          ),
+                          validators: [
+                            FormBuilderValidators.max(5)
+                          ],
                         ),
                         FormBuilderTextField(
                           attribute: 'scoutNotes',

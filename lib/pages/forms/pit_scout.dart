@@ -31,7 +31,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
   Future<String> uploadImage(File image, context) async {
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
-        .child('pit')
+        .child('rpd')
         .child(image.lastModifiedSync().toString());
     StorageUploadTask storageUploadTask = storageReference.putFile(image);
     StorageTaskSnapshot storageTaskSnapshot =
@@ -46,9 +46,10 @@ class _PitScoutPageState extends State<PitScoutPage> {
   }
 
   void submitForm(context) async {
+    formKey.currentState.value.remove('imageRef');
     String teamNumber = formKey.currentState.value['teamNumber'].toString();
     DocumentReference matchDocument =
-        Firestore.instance.collection('teams/$teamNumber/pit').document('pit');
+        Firestore.instance.collection('rpd').document(teamNumber + 'pd');
     DocumentSnapshot snapshot = await matchDocument.get().catchError((e) {
       debugPrint('ERROR: ' + e.toString());
       debugPrint('FIRESTORE DOWNLOAD ERROR, CHECK YOUR CONNECTION');
@@ -147,6 +148,10 @@ class _PitScoutPageState extends State<PitScoutPage> {
                             DropdownMenuItem(
                               value: 'mecanum',
                               child: Text('Mecanum'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'butterfly',
+                              child: Text('Butterfly'),
                             ),
                             DropdownMenuItem(
                               value: 'swerve',
