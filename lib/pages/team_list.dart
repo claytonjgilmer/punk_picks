@@ -17,7 +17,7 @@ class _TeamListPageState extends State<TeamListPage> {
         title: Text('Teams'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.sort),
+            icon: Icon(Icons.search),
             onPressed: null,
           ),
         ],
@@ -32,16 +32,23 @@ class _TeamListPageState extends State<TeamListPage> {
             case ConnectionState.waiting:
               return new Center(child: CircularProgressIndicator());
             default:
-              return new ListView(
-                physics: ScrollPhysics(),
-                children:
-                    snapshot.data.documents.map((DocumentSnapshot document) {
-                  return new ListTile(
-                    title: Text(document['teamNumber'].toString()),
-                    subtitle: Text(document['teamName']),
-                    onTap: null,
+              return new ListView.separated(
+                itemCount: snapshot.data.documents.length,
+                separatorBuilder: (context, index) {
+                  return new Divider(
+                    height: 1.0,
                   );
-                }).toList(),
+                },
+                itemBuilder: (context, index) {
+                  return new ListTile(
+                    title: Text(snapshot.data.documents[index].data['teamNumber']
+                            .toString()),
+                    subtitle: Text(
+                      snapshot.data.documents[index].data['nickname']
+                    ),
+                    onTap: null
+                  );
+                },
               );
           }
         },

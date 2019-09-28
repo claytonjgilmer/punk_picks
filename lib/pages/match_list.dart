@@ -22,7 +22,7 @@ class _MatchListPageState extends State<MatchListPage> {
         title: Text('Matches'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.sort),
+            icon: Icon(Icons.search),
             onPressed: null,
           ),
         ],
@@ -46,13 +46,40 @@ class _MatchListPageState extends State<MatchListPage> {
                 },
                 itemBuilder: (context, index) {
                   return new ListTile(
-                    title: Text(snapshot.data.documents[index].data['matchType']
-                            .toString()
-                            .toUpperCase() +
-                        snapshot.data.documents[index].data['matchNumber']
-                            .toString()),
-                    onTap: navigateToMatchPage(snapshot.data.documents[index].data['matchNumber'])
-                  );
+                      title: Text(snapshot
+                              .data.documents[index].data['matchType']
+                              .toString()
+                              .replaceAll('m', '')
+                              .toUpperCase() +
+                          snapshot.data.documents[index].data['matchNumber']
+                              .toString()),
+                      trailing: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            snapshot.data.documents[index].data['redAlliance']
+                                .toString()
+                                .replaceAll('[', '')
+                                .replaceAll(']', '')
+                                .replaceAll(',', ''),
+                            style: TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.w300),
+                          ),
+                          Text(
+                            snapshot.data.documents[index].data['blueAlliance']
+                                .toString()
+                                .replaceAll('[', '')
+                                .replaceAll(']', '')
+                                .replaceAll(',', ''),
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w300),
+                          )
+                        ],
+                      ),
+                      onTap: null);
                 },
               );
           }

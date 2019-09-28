@@ -1,3 +1,4 @@
+// 2019 SPECIFIC
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -22,9 +23,8 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
   void getMatchData() async {
     debugPrint('MATCH TYPE: ' + this.widget.matchType.toString());
     debugPrint('MATCH NUMBER: ' + this.widget.matchNumber.toString());
-    matchSnapshot = await Firestore.instance
-        .collection('matches')
-        .getDocuments();
+    matchSnapshot =
+        await Firestore.instance.collection('matches').getDocuments();
     debugPrint('MATCH DATA: ' + matchSnapshot.documents.toList().toString());
   }
 
