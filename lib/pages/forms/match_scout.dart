@@ -61,7 +61,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
         label: 'Home',
         onPressed: () {
           router.navigateTo(context, '/home',
-              transition: TransitionType.fadeIn);
+              transition: TransitionType.nativeModal);
         },
       ),
     ));

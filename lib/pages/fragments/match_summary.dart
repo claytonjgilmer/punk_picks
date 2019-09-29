@@ -13,33 +13,44 @@ class MatchSummaryPage extends StatefulWidget {
 }
 
 class _MatchSummaryPageState extends State<MatchSummaryPage> {
-  QuerySnapshot matchSnapshot;
-
   void initState() {
     super.initState();
-    getMatchData();
-  }
-
-  void getMatchData() async {
-    debugPrint('MATCH TYPE: ' + this.widget.matchType.toString());
-    debugPrint('MATCH NUMBER: ' + this.widget.matchNumber.toString());
-    matchSnapshot =
-        await Firestore.instance.collection('matches').getDocuments();
-    debugPrint('MATCH DATA: ' + matchSnapshot.documents.toList().toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        title: Text(widget.matchType.toUpperCase() +
-            widget.matchNumber +
-            ' ' +
-            'Summary'),
-      ),
-      body: Column(
-        children: <Widget>[],
-      ),
-    );
+        appBar: AppBar(
+          title: Text(this.widget.matchType.toUpperCase().replaceAll('M', '') +
+              this.widget.matchNumber.toString() +
+              ' ' +
+              'Summary'),
+        ),
+        body: StreamBuilder(
+            stream: Firestore.instance
+                .collection('matches')
+                .document(this.widget.matchType + this.widget.matchNumber)
+                .snapshots(),
+            builder: (BuildContext context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return new Center(child: CircularProgressIndicator(),);
+                default:
+                  return new ListView(
+                    children: <Widget>[
+                      Center(child: Text(
+                        this.widget.matchType.toUpperCase().replaceAll('M', '') +
+                        this.widget.matchNumber.toString(),
+                        style: TextStyle(
+                          fontSize: 60,
+                          fontWeight: FontWeight.w600
+                        ),
+                      )),
+                    ],
+                  );
+              }
+            },
+        )
+      );
   }
 }

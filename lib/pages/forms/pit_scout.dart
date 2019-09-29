@@ -88,7 +88,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
         label: 'Home',
         onPressed: () {
           router.navigateTo(context, '/home',
-              transition: TransitionType.fadeIn);
+              transition: TransitionType.nativeModal);
         },
       ),
     ));

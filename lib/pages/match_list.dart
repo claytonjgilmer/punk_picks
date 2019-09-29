@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:punk_picks/routes.dart';
@@ -11,8 +12,9 @@ class _MatchListPageState extends State<MatchListPage> {
     super.initState();
   }
 
-  navigateToMatchPage(int matchNumber) async {
-    router.navigateTo(context, '/match_summary:$matchNumber');
+  void navigateToMatchPage(String matchType, int matchNumber) {
+    router.navigateTo(context, '/match_summary/$matchType/$matchNumber',
+        transition: TransitionType.nativeModal);
   }
 
   @override
@@ -79,7 +81,11 @@ class _MatchListPageState extends State<MatchListPage> {
                           )
                         ],
                       ),
-                      onTap: null);
+                      onTap: () {
+                        navigateToMatchPage(
+                            snapshot.data.documents[index].data['matchType'],
+                            snapshot.data.documents[index].data['matchNumber']);
+                      });
                 },
               );
           }
