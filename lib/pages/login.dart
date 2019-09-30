@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(title: Text('Sign In')),
       body: ListView(children: <Widget>[
         Image.asset(
-          'assets/stempunkslogo.png',
+          'assets/logo.png',
           height: 225,
           width: 225,
         ),
