@@ -112,6 +112,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
                       'scoutName': '',
                       // teamNumber : 0,  see match_scout.dart as to why this is commented out
                       'driveTrain': 'tank',
+                      'motor': 'cim',
                       'progLang': 'java',
                       'hasCamera': false,
                       'imageRef': '',
@@ -147,6 +148,10 @@ class _PitScoutPageState extends State<PitScoutPage> {
                               child: Text('Tank'),
                             ),
                             DropdownMenuItem(
+                              value: 'wcd',
+                              child: Text('West Coast'),
+                            ),
+                            DropdownMenuItem(
                               value: 'mecanum',
                               child: Text('Mecanum'),
                             ),
@@ -162,6 +167,31 @@ class _PitScoutPageState extends State<PitScoutPage> {
                               value: 'other',
                               child: Text('Other'),
                             )
+                          ],
+                        ),
+                        FormBuilderDropdown(
+                          attribute: 'motor',
+                          decoration:
+                              InputDecoration(labelText: 'Drivetrain Motor'),
+                          items: [
+                            DropdownMenuItem(
+                              value: 'cim',
+                              child: Text('CIM'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'minicim',
+                              child: Text('MiniCIM'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'neo',
+                              child: Text('NEO'),
+                            ),
+                            DropdownMenuItem(
+                              value: '775pro',
+                              child: Text('775 Pro'),
+                            ),
+                            DropdownMenuItem(
+                                value: 'falcon', child: Text('Falcon'))
                           ],
                         ),
                         FormBuilderDropdown(

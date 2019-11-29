@@ -1,6 +1,8 @@
 // 2019 SPECIFIC
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:punk_picks/routes.dart';
 
 class MatchSummaryPage extends StatefulWidget {
   final String matchType;
@@ -15,6 +17,10 @@ class MatchSummaryPage extends StatefulWidget {
 class _MatchSummaryPageState extends State<MatchSummaryPage> {
   void initState() {
     super.initState();
+  }
+
+  void navigateToRmdList(String matchType, String matchNumber) {
+    router.navigateTo(context, '/rmd_list/$matchType/$matchNumber', transition: TransitionType.nativeModal);
   }
 
   @override
@@ -141,6 +147,14 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
                       height: 20,
                     ),
                     Divider(),
+                    ListTile(
+                      title: Text('Submitted Scouting Results'),
+                      trailing: Icon(Icons.arrow_right),
+                      onTap: () {
+                        navigateToRmdList(this.widget.matchType, this.widget.matchNumber);
+                      }
+                    ),
+                    Divider()
                   ],
                 );
             }

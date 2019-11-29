@@ -4,11 +4,13 @@ import 'package:punk_picks/pages/login.dart';
 import 'package:punk_picks/pages/home.dart';
 import 'package:punk_picks/pages/forms/match_scout.dart';
 import 'package:punk_picks/pages/forms/pit_scout.dart';
-import 'package:punk_picks/pages/match_list.dart';
+import 'package:punk_picks/pages/fragments/match_list.dart';
+import 'package:punk_picks/pages/fragments/rmd_list.dart';
 import 'package:punk_picks/pages/team_list.dart';
 import 'package:punk_picks/pages/first_pick.dart';
 import 'package:punk_picks/pages/second_pick.dart';
 import 'package:punk_picks/pages/fragments/match_summary.dart';
+import 'package:punk_picks/pages/fragments/rmd_summary.dart';
 
 final router = Router();
 
@@ -34,8 +36,19 @@ void defineRoutes() {
     return new MatchListPage();
   }));
 
+  router.define('/match_list/:teamNumber', handler: new Handler(handlerFunc: (BuildContext context, params) {
+    var teamNumber = params['teamNumber'][0];
+    return new MatchListPage(teamNumber);
+  }));
+
   router.define('/team_list', handler: new Handler(handlerFunc: (BuildContext context, params) {
     return new TeamListPage();
+  }));
+
+  router.define('/rmd_list/:matchType/:matchNumber', handler: new Handler(handlerFunc: (BuildContext context, params) {
+    var matchType = params['matchType'][0];
+    var matchNumber = params['matchNumber'][0];
+    return new RmdListPage(matchType, matchNumber);
   }));
 
   router.define('/first_pick', handler: new Handler(handlerFunc: (BuildContext context, params) {
@@ -51,6 +64,14 @@ void defineRoutes() {
     var matchNumber = params['matchNumber'][0];
     return new MatchSummaryPage(matchType, matchNumber);
   }));
+
+  router.define('/rmd_summary/:teamNumber/:matchType/:matchNumber', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    var teamNumber = params['teamNumber'][0];
+    var matchType = params['matchType'][0];
+    var matchNumber = params['matchNumber'][0];
+    return new RmdSummaryPage(teamNumber, matchType, matchNumber);
+  }));
+
 /*
   router.define('/team_summary/:teamNumber', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     return new TeamSummaryPage(params['teamNumber'][0]);
