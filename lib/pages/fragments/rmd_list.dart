@@ -4,11 +4,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:punk_picks/routes.dart';
 
 class RmdListPage extends StatefulWidget {
+  final String teamNumber;
   final String matchType;
   final String matchNumber;
   RmdListPage(
     this.matchType,
-    this.matchNumber
+    this.matchNumber,
+    [this.teamNumber]
+  );
+  RmdListPage.fromTeam(
+    this.teamNumber,
+    [this.matchType, this.matchNumber]
   );
   _RmdListPageState createState() => _RmdListPageState();
 }

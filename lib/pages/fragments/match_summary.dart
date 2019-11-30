@@ -20,7 +20,8 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
   }
 
   void navigateToRmdList(String matchType, String matchNumber) {
-    router.navigateTo(context, '/rmd_list/$matchType/$matchNumber', transition: TransitionType.nativeModal);
+    router.navigateTo(context, '/rmd_list/$matchType/$matchNumber',
+        transition: TransitionType.nativeModal);
   }
 
   @override
@@ -61,6 +62,11 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
+                          if (snapshot.data['redAllianceScore'] >
+                                  snapshot.data['blueAllianceScore'] ||
+                              snapshot.data['redAllianceScore'] ==
+                                  snapshot.data['blueAllianceScore'])
+                            Icon(Icons.check),
                           Text(
                             snapshot.data['redAllianceScore'].toString(),
                             style: TextStyle(
@@ -79,7 +85,12 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
                                 color: Colors.blue,
                                 fontSize: 30,
                                 fontWeight: FontWeight.w400),
-                          )
+                          ),
+                          if (snapshot.data['redAllianceScore'] <
+                                  snapshot.data['blueAllianceScore'] ||
+                              snapshot.data['redAllianceScore'] ==
+                                  snapshot.data['blueAllianceScore'])
+                            Icon(Icons.check)
                         ],
                       ),
                     SizedBox(
@@ -90,27 +101,37 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            Text(
-                              snapshot.data["redAlliance"][0].toString(),
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              snapshot.data["redAlliance"][1].toString(),
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            Text(
-                              snapshot.data["redAlliance"][2].toString(),
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w400),
-                            )
+                              Text(
+                                snapshot.data['redAlliance'][0].toString(),
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                snapshot.data['redAlliance'][1].toString(),
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                snapshot.data['redAlliance'][2].toString(),
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  if (snapshot.data['redRocketRP'] == true)
+                                    Icon(Icons.airplanemode_active),
+                                  if (snapshot.data['redHabRP'] == true)
+                                    Icon(Icons.arrow_upward),
+                                  if (snapshot.data['redRocketRP'] == false && snapshot.data['redHabRP'] == false)
+                                    SizedBox(height: 24.0, width: 24.0,)
+                                ],
+                              )
                           ],
                         ),
                         SizedBox(
@@ -138,7 +159,17 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
                                   color: Colors.blue,
                                   fontSize: 25,
                                   fontWeight: FontWeight.w400),
-                            )
+                            ),
+                            Row(
+                                children: <Widget>[
+                                  if (snapshot.data['blueRocketRP'] == true)
+                                    Icon(Icons.airplanemode_active),
+                                  if (snapshot.data['blueHabRP'] == true)
+                                    Icon(Icons.arrow_upward),
+                                  if (snapshot.data['redRocketRP'] == false && snapshot.data['redHabRP'] == false)
+                                    SizedBox(height: 24.0, width: 24.0,)
+                                ],
+                              )
                           ],
                         )
                       ],
@@ -148,12 +179,12 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
                     ),
                     Divider(),
                     ListTile(
-                      title: Text('Submitted Scouting Results'),
-                      trailing: Icon(Icons.arrow_right),
-                      onTap: () {
-                        navigateToRmdList(this.widget.matchType, this.widget.matchNumber);
-                      }
-                    ),
+                        title: Text('Submitted Scouting Results'),
+                        trailing: Icon(Icons.arrow_right),
+                        onTap: () {
+                          navigateToRmdList(
+                              this.widget.matchType, this.widget.matchNumber);
+                        }),
                     Divider()
                   ],
                 );
