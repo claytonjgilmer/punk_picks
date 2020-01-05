@@ -1,5 +1,7 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:punk_picks/routes.dart';
 
 class TeamListPage extends StatefulWidget {
   _TeamListPageState createState() => _TeamListPageState();
@@ -8,6 +10,10 @@ class TeamListPage extends StatefulWidget {
 class _TeamListPageState extends State<TeamListPage> {
   void initState() {
     super.initState();
+  }
+
+  void navigateToTeamSummary(int teamNumber) {
+    router.navigateTo(context, '/team_summary/$teamNumber', transition: TransitionType.nativeModal);
   }
 
   @override
@@ -46,7 +52,9 @@ class _TeamListPageState extends State<TeamListPage> {
                     subtitle: Text(
                       snapshot.data.documents[index].data['nickname']
                     ),
-                    onTap: null
+                    onTap: () {
+                      navigateToTeamSummary(snapshot.data.documents[index].data['teamNumber']);
+                    }
                   );
                 },
               );

@@ -101,37 +101,41 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                              Text(
-                                snapshot.data['redAlliance'][0].toString(),
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              Text(
-                                snapshot.data['redAlliance'][1].toString(),
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              Text(
-                                snapshot.data['redAlliance'][2].toString(),
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  if (snapshot.data['redRocketRP'] == true)
-                                    Icon(Icons.airplanemode_active),
-                                  if (snapshot.data['redHabRP'] == true)
-                                    Icon(Icons.arrow_upward),
-                                  if (snapshot.data['redRocketRP'] == false && snapshot.data['redHabRP'] == false)
-                                    SizedBox(height: 24.0, width: 24.0,)
-                                ],
-                              )
+                            Text(
+                              snapshot.data['redAlliance'][0].toString(),
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              snapshot.data['redAlliance'][1].toString(),
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              snapshot.data['redAlliance'][2].toString(),
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                if (snapshot.data['redRocketRP'] == true)
+                                  Icon(Icons.airplanemode_active),
+                                if (snapshot.data['redHabRP'] == true)
+                                  Icon(Icons.arrow_upward),
+                                if (snapshot.data['redRocketRP'] == false &&
+                                    snapshot.data['redHabRP'] == false)
+                                  SizedBox(
+                                    height: 24.0,
+                                    width: 24.0,
+                                  )
+                              ],
+                            )
                           ],
                         ),
                         SizedBox(
@@ -161,15 +165,19 @@ class _MatchSummaryPageState extends State<MatchSummaryPage> {
                                   fontWeight: FontWeight.w400),
                             ),
                             Row(
-                                children: <Widget>[
-                                  if (snapshot.data['blueRocketRP'] == true)
-                                    Icon(Icons.airplanemode_active),
-                                  if (snapshot.data['blueHabRP'] == true)
-                                    Icon(Icons.arrow_upward),
-                                  if (snapshot.data['redRocketRP'] == false && snapshot.data['redHabRP'] == false)
-                                    SizedBox(height: 24.0, width: 24.0,)
-                                ],
-                              )
+                              children: <Widget>[
+                                if (snapshot.data['blueRocketRP'] == true)
+                                  Icon(Icons.airplanemode_active),
+                                if (snapshot.data['blueHabRP'] == true)
+                                  Icon(Icons.arrow_upward),
+                                if (snapshot.data['blueRocketRP'] == false &&
+                                    snapshot.data['blueHabRP'] == false)
+                                  SizedBox(
+                                    height: 24.0,
+                                    width: 24.0,
+                                  )
+                              ],
+                            )
                           ],
                         )
                       ],

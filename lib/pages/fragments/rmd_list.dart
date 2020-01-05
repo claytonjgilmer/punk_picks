@@ -7,15 +7,10 @@ class RmdListPage extends StatefulWidget {
   final String teamNumber;
   final String matchType;
   final String matchNumber;
-  RmdListPage(
-    this.matchType,
-    this.matchNumber,
-    [this.teamNumber]
-  );
-  RmdListPage.fromTeam(
-    this.teamNumber,
-    [this.matchType, this.matchNumber]
-  );
+  // from match summary
+  RmdListPage(this.matchType, this.matchNumber, [this.teamNumber]);
+  // from team summary
+  RmdListPage.fromTeam(this.teamNumber, [this.matchType, this.matchNumber]);
   _RmdListPageState createState() => _RmdListPageState();
 }
 
@@ -25,7 +20,8 @@ class _RmdListPageState extends State<RmdListPage> {
   }
 
   void navigateToRmdPage(int teamNumber, String matchType, int matchNumber) {
-    router.navigateTo(context, '/rmd_summary/$teamNumber/$matchType/$matchNumber',
+    router.navigateTo(
+        context, '/rmd_summary/$teamNumber/$matchType/$matchNumber',
         transition: TransitionType.nativeModal);
   }
 
@@ -33,7 +29,9 @@ class _RmdListPageState extends State<RmdListPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text(this.widget.matchType.replaceAll('m', '').toUpperCase() + this.widget.matchNumber + ' Scouting Submissions'),
+        title: Text(this.widget.matchType.replaceAll('m', '').toUpperCase() +
+            this.widget.matchNumber +
+            ' Scouting Submissions'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -62,7 +60,8 @@ class _RmdListPageState extends State<RmdListPage> {
                 itemBuilder: (context, index) {
                   return new ListTile(
                       title: Text(
-                        snapshot.data.documents[index].data['teamNumber'].toString(),
+                        snapshot.data.documents[index].data['teamNumber']
+                            .toString(),
                       ),
                       onTap: () {
                         navigateToRmdPage(
