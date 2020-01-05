@@ -1,4 +1,4 @@
-// 2019 SPECIFIC
+// 2020 SPECIFIC
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -90,24 +90,29 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                       // due to expecting a string), so commenting out and letting flutter infer datatype
                       //'matchNumber' : 0,
                       //'teamNumber' : 0,
-                      'sandstormHabLevel': 1,
-                      'sandstormHabSuccess': false,
-                      'hatchScoredSandstorm': 0,
-                      'cargoScoredSandstorm': 0,
-                      'hatchScoredL1': 0,
-                      'hatchScoredL2': 0,
-                      'hatchScoredL3': 0,
-                      'cargoScoredL1': 0,
-                      'cargoScoredL2': 0,
-                      'cargoScoredL3': 0,
-                      'endgameHabLevel': 1,
-                      'endgameHabSuccess': false,
-                      'defenseQuality': 0,
-                      'driveQuality': 0,
+                      'didCrossLineAuto': false,
+                      'cellScoredL1Auto': 0,
+                      'cellScoredL2Auto': 0,
+                      'cellScoredL3Auto': 0,
+                      'cellScoredL1': 0,
+                      'cellScoredL2': 0,
+                      'cellScoredL3': 0,
+                      'didRotationControl': false,
+                      'didPositionControl': false,
+                      'didParkEndgame': false,
+                      'didClimbEndgame': false,
+                      'didClimbCenterEndgame': false,
                       'scoutNotes': '',
                     },
                     child: Column(
                       children: <Widget>[
+                        Text(
+                          'General',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
                         FormBuilderTextField(
                           attribute: 'scoutName',
                           decoration: InputDecoration(labelText: 'Scout Name'),
@@ -160,132 +165,104 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                             FormBuilderValidators.maxLength(4),
                           ],
                         ),
-                        Divider(
-                          thickness: 2,
-                          height: 75,
-                          color: Color.fromRGBO(0, 0, 0, 0),
+                        SizedBox(
+                          height: 64,
                         ),
-                        FormBuilderRadio(
-                          attribute: 'sandstormHabLevel',
-                          decoration:
-                              InputDecoration(labelText: 'Starting HAB level'),
-                          options: [
-                            FormBuilderFieldOption(
-                              value: 1,
-                            ),
-                            FormBuilderFieldOption(
-                              value: 2,
-                            )
-                          ],
+                        Text(
+                          'Autonomous',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                         FormBuilderCheckbox(
-                          attribute: 'sandstormHabSuccess',
-                          label:
-                              Text('Successfully left HAB during sandstorm?'),
+                          attribute: 'didCrossLineAuto',
+                          label: Text('Did they cross the auto line?'),
                         ),
                         FormBuilderStepper(
-                          attribute: 'hatchScoredSandstorm',
-                          decoration: InputDecoration(
-                            labelText: 'Hatches scored during sandstorm'
+                          attribute: 'cellScoredL1Auto',
+                          decoration: InputDecoration(labelText: 'Cells scored on the low level.'),
+                          min: 0
+                        ),
+                        FormBuilderStepper(
+                          attribute: 'cellScoredL2Auto',
+                          decoration: InputDecoration(labelText: 'Cells scored on the high level.'),
+                          min: 0
+                        ),
+                        FormBuilderStepper(
+                          attribute: 'cellScoredL3Auto',
+                          decoration: InputDecoration(labelText: 'Cells scored on the high level in the circle.'),
+                          min: 0
+                        ),
+                        SizedBox(
+                          height: 64,
+                        ),
+                        Text(
+                          'Teleop',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold
                           ),
                         ),
                         FormBuilderStepper(
-                          attribute: 'cargoScoredSandstorm',
-                          decoration: InputDecoration(
-                            labelText: 'Cargo scored during sandstorm'
-                          ),
-                        ),
-                        Divider(
-                          thickness: 2,
-                          height: 75,
-                          color: Color.fromRGBO(0, 0, 0, 0),
+                          attribute: 'cellScoredL1',
+                          decoration: InputDecoration(labelText: 'Cells scored on the low level.'),
+                          min: 0
                         ),
                         FormBuilderStepper(
-                          attribute: 'hatchScoredL1',
-                          decoration: InputDecoration(
-                              labelText: 'Hatches scored on L1'),
+                          attribute: 'cellScoredL2',
+                          decoration: InputDecoration(labelText: 'Cells scored on the high level.'),
+                          min: 0
                         ),
                         FormBuilderStepper(
-                            attribute: 'hatchScoredL2',
-                            decoration: InputDecoration(
-                                labelText: 'Hatches scored on L2')),
-                        FormBuilderStepper(
-                          attribute: 'hatchScoredL3',
-                          decoration: InputDecoration(
-                              labelText: 'Hatches scored on L3'),
-                        ),
-                        FormBuilderStepper(
-                          attribute: 'cargoScoredL1',
-                          decoration:
-                              InputDecoration(labelText: 'Cargo scored on L1'),
-                        ),
-                        FormBuilderStepper(
-                          attribute: 'cargoScoredL2',
-                          decoration:
-                              InputDecoration(labelText: 'Cargo scored on L2'),
-                        ),
-                        FormBuilderStepper(
-                          attribute: 'cargoScoredL3',
-                          decoration:
-                              InputDecoration(labelText: 'Cargo scored on L3'),
-                        ),
-                        Divider(
-                          thickness: 2,
-                          height: 75,
-                          color: Color.fromRGBO(0, 0, 0, 0),
-                        ),
-                        FormBuilderRadio(
-                          attribute: 'endgameHabLevel',
-                          decoration:
-                              InputDecoration(labelText: 'Endgame HAB Level'),
-                          options: [
-                            FormBuilderFieldOption(
-                              value: 0,
-                            ),
-                            FormBuilderFieldOption(
-                              value: 1,
-                            ),
-                            FormBuilderFieldOption(
-                              value: 2,
-                            ),
-                            FormBuilderFieldOption(
-                              value: 3,
-                            )
-                          ],
+                          attribute: 'cellScoredL3',
+                          decoration: InputDecoration(labelText: 'Cells scored on the high level in the circle.'),
+                          min: 0
                         ),
                         FormBuilderCheckbox(
-                          attribute: 'endgameHabSuccess',
-                          label: Text(
-                              'Successful climb on HAB during endgame?'),
+                          attribute: 'didRotationControl',
+                          label: Text('Did they successfully execute rotation control?'),
                         ),
-                        Divider(
-                          thickness: 2,
-                          height: 75,
-                          color: Color.fromRGBO(0, 0, 0, 0),
+                        FormBuilderCheckbox(
+                          attribute: 'didPositionControl',
+                          label: Text('Did they successfully execute position control?'),
                         ),
-                        FormBuilderStepper(
-                          attribute: 'defenseQuality',
-                          decoration: InputDecoration(
-                            labelText: 'How well did they play defense? (0 if no defense)',
+                        SizedBox(
+                          height: 64,
+                        ),
+                        Text(
+                          'Endgame',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold
                           ),
-                          validators: [
-                            FormBuilderValidators.max(5)
-                          ],
                         ),
-                        FormBuilderStepper(
-                          attribute: 'drivingQuality',
-                          decoration: InputDecoration(
-                            labelText: 'Rate their driving skills.'
+                        FormBuilderCheckbox(
+                          attribute: 'didParkEndgame',
+                          label: Text('Did they park in the rendezvous zone?'),
+                        ),
+                        FormBuilderCheckbox(
+                          attribute: 'didClimbEndgame',
+                          label: Text('Did they climb in the rendezvous zone?'),
+                        ),
+                        FormBuilderCheckbox(
+                          attribute: 'didClimbEndgame',
+                          label: Text('Did they center climb in the rendezvous zone?'),
+                        ),
+                        SizedBox(
+                          height: 64,
+                        ),
+                        Text(
+                          'Other',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold
                           ),
-                          validators: [
-                            FormBuilderValidators.max(5)
-                          ],
                         ),
                         FormBuilderTextField(
                           attribute: 'scoutNotes',
-                          decoration:
-                              InputDecoration(labelText: 'Additional comments'),
-                        )
+                          decoration: InputDecoration(labelText: 'Scout notes'),
+                        )     
                       ],
                     ),
                   ),

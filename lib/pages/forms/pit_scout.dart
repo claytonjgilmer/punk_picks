@@ -1,4 +1,4 @@
-// 2019 SPECIFIC
+// 2020 SPECIFIC
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -110,11 +110,12 @@ class _PitScoutPageState extends State<PitScoutPage> {
                     autovalidate: false,
                     initialValue: {
                       'scoutName': '',
-                      // teamNumber : 0,  see match_scout.dart as to why this is commented out
+                      // 'teamNumber' : 0,  see match_scout.dart as to why these are commented out
+                      // 'weight': 0,
                       'driveTrain': 'tank',
                       'motor': 'cim',
                       'progLang': 'java',
-                      'hasCamera': false,
+                      'hasVision': false,
                       'imageRef': '',
                       'imageUrl': '',
                     },
@@ -136,6 +137,17 @@ class _PitScoutPageState extends State<PitScoutPage> {
                             FormBuilderValidators.required(),
                             FormBuilderValidators.numeric(),
                             FormBuilderValidators.maxLength(4),
+                          ],
+                        ),
+                        FormBuilderTextField(
+                          attribute: 'weight',
+                          decoration: InputDecoration(labelText: 'Weight'),
+                          keyboardType: TextInputType.number,
+                          valueTransformer: (text) => num.tryParse(text),
+                          validators: [
+                            FormBuilderValidators.required(),
+                            FormBuilderValidators.numeric(),
+                            FormBuilderValidators.maxLength(3),
                           ],
                         ),
                         FormBuilderDropdown(
@@ -187,6 +199,10 @@ class _PitScoutPageState extends State<PitScoutPage> {
                               child: Text('NEO'),
                             ),
                             DropdownMenuItem(
+                              value: 'mininem',
+                              child: Text('MiniNEO'),
+                            ),
+                            DropdownMenuItem(
                               value: '775pro',
                               child: Text('775 Pro'),
                             ),
@@ -222,8 +238,8 @@ class _PitScoutPageState extends State<PitScoutPage> {
                           ],
                         ),
                         FormBuilderCheckbox(
-                          attribute: 'hasCamera',
-                          label: Text('Has camera(s)?'),
+                          attribute: 'hasVision',
+                          label: Text('Has vision?'),
                         ),
                         FormBuilderCustomField(
                           attribute: 'imageRef',
