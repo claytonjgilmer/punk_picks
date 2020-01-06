@@ -99,9 +99,10 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                       'cellScoredL3': 0,
                       'didRotationControl': false,
                       'didPositionControl': false,
+                      'didDriveThroughTrench': false,
                       'didParkEndgame': false,
                       'didClimbEndgame': false,
-                      'didClimbCenterEndgame': false,
+                      'didBalanceEndgame': false,
                       'scoutNotes': '',
                     },
                     child: Column(
@@ -109,9 +110,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                         Text(
                           'General',
                           style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 28, fontWeight: FontWeight.bold),
                         ),
                         FormBuilderTextField(
                           attribute: 'scoutName',
@@ -171,61 +170,65 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                         Text(
                           'Autonomous',
                           style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 28, fontWeight: FontWeight.bold),
                         ),
                         FormBuilderCheckbox(
                           attribute: 'didCrossLineAuto',
                           label: Text('Did they cross the auto line?'),
                         ),
                         FormBuilderStepper(
-                          attribute: 'cellScoredL1Auto',
-                          decoration: InputDecoration(labelText: 'Cells scored on the low level.'),
-                          min: 0
-                        ),
+                            attribute: 'cellScoredL1Auto',
+                            decoration: InputDecoration(
+                                labelText: 'Cells scored on the low level.'),
+                            min: 0),
                         FormBuilderStepper(
-                          attribute: 'cellScoredL2Auto',
-                          decoration: InputDecoration(labelText: 'Cells scored on the high level.'),
-                          min: 0
-                        ),
+                            attribute: 'cellScoredL2Auto',
+                            decoration: InputDecoration(
+                                labelText: 'Cells scored on the high level.'),
+                            min: 0),
                         FormBuilderStepper(
-                          attribute: 'cellScoredL3Auto',
-                          decoration: InputDecoration(labelText: 'Cells scored on the high level in the circle.'),
-                          min: 0
-                        ),
+                            attribute: 'cellScoredL3Auto',
+                            decoration: InputDecoration(
+                                labelText:
+                                    'Cells scored on the high level in the circle.'),
+                            min: 0),
                         SizedBox(
                           height: 64,
                         ),
                         Text(
                           'Teleop',
                           style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 28, fontWeight: FontWeight.bold),
                         ),
                         FormBuilderStepper(
-                          attribute: 'cellScoredL1',
-                          decoration: InputDecoration(labelText: 'Cells scored on the low level.'),
-                          min: 0
-                        ),
+                            attribute: 'cellScoredL1',
+                            decoration: InputDecoration(
+                                labelText: 'Cells scored on the low level.'),
+                            min: 0),
                         FormBuilderStepper(
-                          attribute: 'cellScoredL2',
-                          decoration: InputDecoration(labelText: 'Cells scored on the high level.'),
-                          min: 0
-                        ),
+                            attribute: 'cellScoredL2',
+                            decoration: InputDecoration(
+                                labelText: 'Cells scored on the high level.'),
+                            min: 0),
                         FormBuilderStepper(
-                          attribute: 'cellScoredL3',
-                          decoration: InputDecoration(labelText: 'Cells scored on the high level in the circle.'),
-                          min: 0
-                        ),
+                            attribute: 'cellScoredL3',
+                            decoration: InputDecoration(
+                                labelText:
+                                    'Cells scored on the high level in the circle.'),
+                            min: 0),
                         FormBuilderCheckbox(
                           attribute: 'didRotationControl',
-                          label: Text('Did they successfully execute rotation control?'),
+                          label: Text(
+                              'Did they successfully execute rotation control?'),
                         ),
                         FormBuilderCheckbox(
                           attribute: 'didPositionControl',
-                          label: Text('Did they successfully execute position control?'),
+                          label: Text(
+                              'Did they successfully execute position control?'),
+                        ),
+                        FormBuilderCheckbox(
+                          attribute: 'didDriveThroughTrench',
+                          label: Text('Did they drive through the trench?'),
                         ),
                         SizedBox(
                           height: 64,
@@ -233,9 +236,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                         Text(
                           'Endgame',
                           style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 28, fontWeight: FontWeight.bold),
                         ),
                         FormBuilderCheckbox(
                           attribute: 'didParkEndgame',
@@ -246,8 +247,9 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                           label: Text('Did they climb in the rendezvous zone?'),
                         ),
                         FormBuilderCheckbox(
-                          attribute: 'didClimbEndgame',
-                          label: Text('Did they center climb in the rendezvous zone?'),
+                          attribute: 'didBalanceEndgame',
+                          label: Text(
+                              'Did they successfully balance in the rendezvous zone?'),
                         ),
                         SizedBox(
                           height: 64,
@@ -255,14 +257,12 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                         Text(
                           'Other',
                           style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 28, fontWeight: FontWeight.bold),
                         ),
                         FormBuilderTextField(
                           attribute: 'scoutNotes',
                           decoration: InputDecoration(labelText: 'Scout notes'),
-                        )     
+                        )
                       ],
                     ),
                   ),

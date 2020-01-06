@@ -4,13 +4,12 @@ import 'package:punk_picks/pages/login.dart';
 import 'package:punk_picks/pages/home.dart';
 import 'package:punk_picks/pages/forms/match_scout.dart';
 import 'package:punk_picks/pages/forms/pit_scout.dart';
-import 'package:punk_picks/pages/fragments/match_list.dart';
-import 'package:punk_picks/pages/fragments/rmd_list.dart';
+import 'package:punk_picks/pages/match_list.dart';
 import 'package:punk_picks/pages/team_list.dart';
 import 'package:punk_picks/pages/first_pick.dart';
 import 'package:punk_picks/pages/second_pick.dart';
-import 'package:punk_picks/pages/fragments/match_summary.dart';
-import 'package:punk_picks/pages/fragments/rmd_summary.dart';
+import 'package:punk_picks/pages/fragments/match_summary_fragment.dart';
+import 'package:punk_picks/pages/fragments/rmd_summary_fragment.dart';
 import 'package:punk_picks/pages/fragments/team_summary.dart';
 
 final router = Router();
@@ -44,32 +43,10 @@ void defineRoutes() {
     return new MatchListPage();
   }));
 
-  // Filtered match list page, if selected from team summary page (filter by team)
-  router.define('/match_list/:teamNumber',
-      handler: new Handler(handlerFunc: (BuildContext context, params) {
-    var teamNumber = params['teamNumber'][0];
-    return new MatchListPage(teamNumber);
-  }));
-
   // Team list page
   router.define('/team_list',
       handler: new Handler(handlerFunc: (BuildContext context, params) {
     return new TeamListPage();
-  }));
-
-  // Raw match data (submitted scouting results) list page, filter by team
-  router.define('/rmd_list/:teamNumber',
-      handler: new Handler(handlerFunc: (BuildContext context, params) {
-    var teamNumber = params['teamNumber'][0];
-    return new RmdListPage.fromTeam(teamNumber);
-  }));
-
-  // Raw match data (submitted scouting results) list page, filter by specific match
-  router.define('/rmd_list/:matchType/:matchNumber',
-      handler: new Handler(handlerFunc: (BuildContext context, params) {
-    var matchType = params['matchType'][0];
-    var matchNumber = params['matchNumber'][0];
-    return new RmdListPage(matchType, matchNumber);
   }));
 
   // First pick list, contains list of all teams and sorts by first-pickability
@@ -108,9 +85,4 @@ void defineRoutes() {
     return new TeamSummaryPage(teamNumber);
   }));
 
-/*
-  router.define('/pit_summary/:teamNumber', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    return new PitSummaryPage(params['teamNumber'][0]);
-  }));
-*/
 }

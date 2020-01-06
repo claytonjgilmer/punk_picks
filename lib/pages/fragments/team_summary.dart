@@ -40,6 +40,9 @@ class _TeamSummaryPageState extends State<TeamSummaryPage> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
+                            SizedBox(
+                              width: 12,
+                            ),
                             Text(
                               this.widget.teamNumber,
                               style: TextStyle(
@@ -55,20 +58,27 @@ class _TeamSummaryPageState extends State<TeamSummaryPage> {
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          snapshot.data['nickname'],
-                          style: TextStyle(
-                            fontSize: 20
-                          ),
-                        ),
+                        Row(
+                          children: <Widget>[
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Text(
+                              snapshot.data['nickname'],
+                              style: TextStyle(
+                              fontSize: 20
+                              ),
+                            ),
+                          ],
+                        ),   
                         SizedBox(
                           height: 20,
                         ),
                         Row(
                           children: <Widget>[
+                            SizedBox(
+                              width: 12,
+                            ),
                             Text(
                               'Rank: ' + snapshot.data['currRank'].toString(),
                               style: TextStyle(
@@ -81,6 +91,9 @@ class _TeamSummaryPageState extends State<TeamSummaryPage> {
                               style: TextStyle(
                                 fontSize: 18
                               ),
+                            ),
+                            SizedBox(
+                              width: 12,
                             )
                           ],
                         )

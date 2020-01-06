@@ -116,6 +116,9 @@ class _PitScoutPageState extends State<PitScoutPage> {
                       'motor': 'cim',
                       'progLang': 'java',
                       'hasVision': false,
+                      'canDoRotationControl': false,
+                      'canDoPositionControl': false,
+                      // 'teamVibe': 0, 
                       'imageRef': '',
                       'imageUrl': '',
                     },
@@ -141,7 +144,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
                         ),
                         FormBuilderTextField(
                           attribute: 'weight',
-                          decoration: InputDecoration(labelText: 'Weight'),
+                          decoration: InputDecoration(labelText: 'Robot Weight'),
                           keyboardType: TextInputType.number,
                           valueTransformer: (text) => num.tryParse(text),
                           validators: [
@@ -239,7 +242,19 @@ class _PitScoutPageState extends State<PitScoutPage> {
                         ),
                         FormBuilderCheckbox(
                           attribute: 'hasVision',
-                          label: Text('Has vision?'),
+                          label: Text('Do they have vision?'),
+                        ),
+                        FormBuilderCheckbox(
+                          attribute: 'canDoRotationControl',
+                          label: Text('Can they do rotation control?'),
+                        ),
+                        FormBuilderCheckbox(
+                          attribute: 'canDoPositionControl',
+                          label: Text('Can they do position control?'),
+                        ),
+                        FormBuilderRadio(
+                          attribute: 'teamVibe',
+                          decoration: InputDecoration(labelText: 'Vibe check?'),
                         ),
                         FormBuilderCustomField(
                           attribute: 'imageRef',
