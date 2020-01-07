@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:punk_picks/pages/favorites.dart';
 import 'package:punk_picks/pages/login.dart';
 import 'package:punk_picks/pages/home.dart';
 import 'package:punk_picks/pages/forms/match_scout.dart';
@@ -59,6 +60,12 @@ void defineRoutes() {
   router.define('/second_pick',
       handler: new Handler(handlerFunc: (BuildContext context, params) {
     return new SecondPickPage();
+  }));
+
+  // Favorites page, displays user's saved teams
+  router.define('/favorites',
+      handler: new Handler(handlerFunc: (BuildContext context, params) {
+    return new FavoritesPage();
   }));
 
   // Match summary page, gives general match summary (most data from tba)

@@ -8,6 +8,7 @@ class TeamListPage extends StatefulWidget {
 }
 
 class _TeamListPageState extends State<TeamListPage> {
+
   void initState() {
     super.initState();
   }
@@ -21,12 +22,6 @@ class _TeamListPageState extends State<TeamListPage> {
     return new Scaffold(
       appBar: AppBar(
         title: Text('Teams'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: null,
-          ),
-        ],
       ),
       body: TeamList()
     );

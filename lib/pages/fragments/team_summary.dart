@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:punk_picks/pages/fragments/match_list_fragment.dart';
 import 'package:punk_picks/pages/fragments/pit_summary_fragment.dart';
 import 'package:punk_picks/pages/fragments/rmd_list_fragment.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TeamSummaryPage extends StatefulWidget {
   final String teamNumber;
@@ -16,16 +17,58 @@ class TeamSummaryPage extends StatefulWidget {
 class _TeamSummaryPageState extends State<TeamSummaryPage>
     with SingleTickerProviderStateMixin {
   TabController tabController;
+  SharedPreferences prefs;
+  bool isFavorite;
 
+  @override
   void initState() {
     super.initState();
     tabController = TabController(vsync: this, length: 4);
+    SharedPreferences.getInstance().then((prefs) {
+      if (prefs.getStringList('favorites').contains(this.widget.teamNumber))
+        isFavorite = true;
+      else 
+        isFavorite = false;
+      setState((){});
+    });
   }
+
+  void favoriteTeam(BuildContext context) async {
+    prefs = await SharedPreferences.getInstance();
+    List<String> favorites = prefs.getStringList('favorites');
+    favorites.add(this.widget.teamNumber);
+    prefs.setStringList('favorites', favorites);
+    debugPrint('FAVORITES: ' + prefs.getStringList('favorites').toString());
+    setState((){});
+  }
+
+  void unfavoriteTeam(BuildContext context) async {
+    prefs = await SharedPreferences.getInstance();
+    List<String> favorites = prefs.getStringList('favorites');
+    favorites.remove(this.widget.teamNumber);
+    prefs.setStringList('favorites', favorites);
+    isFavorite = false;
+    debugPrint('FAVORITES: ' + prefs.getStringList('favorites').toString());
+    setState((){});
+  }
+
 
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(
           title: Text(this.widget.teamNumber + ' Summary'),
+          actions: <Widget>[
+            IconButton(
+              icon: isFavorite == true ? Icon(Icons.check) : Icon(Icons.star),
+              onPressed: isFavorite == true
+              ? () {
+                unfavoriteTeam(context);
+              }
+              : () {
+                favoriteTeam(context);
+              }
+            )
+          ],
           bottom: TabBar(
             controller: tabController,
             tabs: <Widget>[

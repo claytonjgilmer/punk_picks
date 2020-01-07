@@ -25,12 +25,16 @@ class _HomePageState extends State<HomePage> {
 
   void updateUserInfo() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    DocumentSnapshot globals = await Firestore.instance.collection('global').document('client').get();
+    DocumentSnapshot globals =
+        await Firestore.instance.collection('global').document('client').get();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('displayName', user.displayName);
     prefs.setString('email', user.email);
     prefs.setString('photoUrl', user.photoUrl);
     prefs.setBool('compReady', globals.data['compReady']);
+    if (prefs.getStringList('favorites') == null)
+      prefs.setStringList('favorites', []);
+    debugPrint('FAVORITES: ' + prefs.getStringList('favorites').toString());
     displayName = prefs.getString('displayName');
     email = prefs.getString('email');
     photoUrl = prefs.getString('photoUrl');
@@ -52,7 +56,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void navigateToPitScout() {
-    router.navigateTo(context, '/pit_scout', transition: TransitionType.nativeModal);
+    router.navigateTo(context, '/pit_scout',
+        transition: TransitionType.nativeModal);
   }
 
   void navigateToMatchList() {
@@ -61,7 +66,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void navigateToTeamList() {
-    router.navigateTo(context, '/team_list', transition: TransitionType.nativeModal);
+    router.navigateTo(context, '/team_list',
+        transition: TransitionType.nativeModal);
+  }
+
+  void navigateToFavoritesPage() {
+    router.navigateTo(context, '/favorites',
+        transition: TransitionType.nativeModal);
   }
 
   @override
@@ -113,6 +124,11 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Second Pick'),
               leading: Icon(Icons.looks_two),
+            ),
+            ListTile(
+              title: Text('Favorites'),
+              leading: Icon(Icons.star),
+              onTap: navigateToFavoritesPage,
             ),
             ListTile(
               title: Text('Scout Pro'),
