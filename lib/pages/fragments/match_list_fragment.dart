@@ -17,8 +17,8 @@ class MatchList extends StatelessWidget {
               .snapshots()
           : Firestore.instance
               .collection('matches')
-              .where('teamNumber', isEqualTo: int.parse(this.teamNumber))
               .orderBy('matchNumber')
+              .where('teams', arrayContains: int.parse(this.teamNumber))
               .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         switch (snapshot.connectionState) {

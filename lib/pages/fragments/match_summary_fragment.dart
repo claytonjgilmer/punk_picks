@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:punk_picks/routes.dart';
+import 'package:punk_picks/pages/fragments/rmd_list_fragment.dart';
 
 class MatchSummaryPage extends StatefulWidget {
   final String matchType;
@@ -39,9 +40,11 @@ class _MatchSummaryPageState extends State<MatchSummaryPage>
             tabs: <Widget>[
               Tab(
                 icon: Icon(Icons.info),
+                text: 'INFO',
               ),
               Tab(
                 icon: Icon(Icons.mail),
+                text: 'RESULTS',
               )
             ],
             controller: tabController,
@@ -82,7 +85,7 @@ class _MatchSummaryPageState extends State<MatchSummaryPage>
                           height: 20,
                         ),
                         if (snapshot.data['redAllianceScore'] != null &&
-                            snapshot.data['blueAllianceScore'] != null)
+                            snapshot.data['blueAllianceScore'] != null) 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -117,6 +120,32 @@ class _MatchSummaryPageState extends State<MatchSummaryPage>
                                 Icon(Icons.check)
                             ],
                           ),
+                        if (snapshot.data['redAllianceScore'] == null &&
+                            snapshot.data['blueAllianceScore'] == null)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                '??',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w400),
+                                ),
+                                Text(
+                                  ' vs. ',
+                                  style: TextStyle(
+                                      fontSize: 30, fontWeight: FontWeight.w400),
+                                ),
+                                Text(
+                                  '??',
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
                         SizedBox(
                           height: 24,
                         ),
@@ -249,12 +278,17 @@ class _MatchSummaryPageState extends State<MatchSummaryPage>
                             )
                           ],
                         ),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        Divider()
                       ],
+                      
                     );
                 }
               },
             ),
-            Icon(Icons.assessment),
+            RmdList(this.widget.matchType, this.widget.matchNumber)
           ],
         ));
   }

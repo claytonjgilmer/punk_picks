@@ -1,8 +1,9 @@
-// 2019 SPECIFIC
-import 'package:fluro/fluro.dart';
+// 2020 SPECIFIC
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:punk_picks/routes.dart';
+import 'package:punk_picks/pages/fragments/match_list_fragment.dart';
+import 'package:punk_picks/pages/fragments/pit_summary_fragment.dart';
+import 'package:punk_picks/pages/fragments/rmd_list_fragment.dart';
 
 class TeamSummaryPage extends StatefulWidget {
   final String teamNumber;
@@ -12,112 +13,118 @@ class TeamSummaryPage extends StatefulWidget {
   _TeamSummaryPageState createState() => _TeamSummaryPageState();
 }
 
-class _TeamSummaryPageState extends State<TeamSummaryPage> {
+class _TeamSummaryPageState extends State<TeamSummaryPage>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
+
   void initState() {
     super.initState();
+    tabController = TabController(vsync: this, length: 4);
   }
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        title: Text(this.widget.teamNumber + ' Summary'),
-      ),
-      body: StreamBuilder(
-        stream: Firestore.instance.collection('teams').document(this.widget.teamNumber).snapshots(),
-        builder: (BuildContext context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return new Center(
-                child: CircularProgressIndicator(),
-              );
-            default:
-              return new ListView(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        appBar: AppBar(
+          title: Text(this.widget.teamNumber + ' Summary'),
+          bottom: TabBar(
+            controller: tabController,
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.info),
+                text: 'INFO',
+              ),
+              Tab(
+                icon: Icon(Icons.calendar_today),
+                text: 'MATCHES',
+              ),
+              Tab(
+                icon: Icon(Icons.mail),
+                text: 'RESULTS',
+              ),
+              Tab(
+                icon: Icon(Icons.flag),
+                text: 'PIT',
+              )
+            ],
+          ),
+        ),
+        body: TabBarView(
+          controller: tabController,
+          children: <Widget>[
+            StreamBuilder(
+              stream: Firestore.instance
+                  .collection('teams')
+                  .document(this.widget.teamNumber)
+                  .snapshots(),
+              builder: (BuildContext context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return new Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  default:
+                    return new ListView(
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Text(
-                              this.widget.teamNumber,
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w600
-                              )
-                            ),
-                            Spacer(),
-                            Image.asset(
-                              'assets/diamond.png',
-                              height: 100,
-                              width: 100
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Text(
-                              snapshot.data['nickname'],
-                              style: TextStyle(
-                              fontSize: 20
-                              ),
-                            ),
-                          ],
-                        ),   
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Text(
-                              'Rank: ' + snapshot.data['currRank'].toString(),
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              'Rookie Year: ' + snapshot.data['rookieYear'].toString(),
-                              style: TextStyle(
-                                fontSize: 18
-                              ),
-                            ),
-                            SizedBox(
-                              width: 12,
-                            )
-                          ],
-                        )
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 12,
+                                    ),
+                                    Text(this.widget.teamNumber,
+                                        style: TextStyle(
+                                            fontSize: 60,
+                                            fontWeight: FontWeight.w600)),
+                                    Spacer(),
+                                    Image.asset('assets/diamond.png',
+                                        height: 100, width: 100)
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 12,
+                                    ),
+                                    Text(
+                                      snapshot.data['nickname'],
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 12,
+                                    ),
+                                    Icon(Icons.format_list_numbered),
+                                    Text(
+                                      snapshot.data['currRank'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )),
                       ],
-                    )
-                  ),
-                  SizedBox(height: 12),
-                  Divider(),
-                  ListTile(
-                    title: Text('Matches'),
-                    trailing: Icon(Icons.arrow_right),
-                  ),
-                  Divider(),
-                  ListTile(
-                    title: Text('Submitted Scouting Results'),
-                    trailing: Icon(Icons.arrow_right),
-                  ),
-                  Divider(),
-                ],
-              );
-          }
-        },
-      ),
-    );
-
+                    );
+                }
+              },
+            ),
+            MatchList(
+              this.widget.teamNumber
+            ),
+            RmdList.fromTeam(this.widget.teamNumber),
+            PitSummary(this.widget.teamNumber)
+          ],
+        ));
   }
 }

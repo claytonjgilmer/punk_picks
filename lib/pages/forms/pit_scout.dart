@@ -118,7 +118,8 @@ class _PitScoutPageState extends State<PitScoutPage> {
                       'hasVision': false,
                       'canDoRotationControl': false,
                       'canDoPositionControl': false,
-                      // 'teamVibe': 0, 
+                      'canDriveUnderTrench': false,
+                      'teamVibe': 0, 
                       'imageRef': '',
                       'imageUrl': '',
                     },
@@ -252,9 +253,15 @@ class _PitScoutPageState extends State<PitScoutPage> {
                           attribute: 'canDoPositionControl',
                           label: Text('Can they do position control?'),
                         ),
-                        FormBuilderRadio(
+                        FormBuilderCheckbox(
+                          attribute: 'canDriveUnderTrench',
+                          label: Text('Can they drive under the trench?'),
+                        ),
+                        FormBuilderStepper(
                           attribute: 'teamVibe',
                           decoration: InputDecoration(labelText: 'Vibe check?'),
+                          min: 1,
+                          max: 5
                         ),
                         FormBuilderCustomField(
                           attribute: 'imageRef',
