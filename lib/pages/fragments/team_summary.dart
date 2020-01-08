@@ -33,16 +33,17 @@ class _TeamSummaryPageState extends State<TeamSummaryPage>
     });
   }
 
-  void favoriteTeam(BuildContext context) async {
+  void favoriteTeam() async {
     prefs = await SharedPreferences.getInstance();
     List<String> favorites = prefs.getStringList('favorites');
     favorites.add(this.widget.teamNumber);
     prefs.setStringList('favorites', favorites);
+    isFavorite = true;
     debugPrint('FAVORITES: ' + prefs.getStringList('favorites').toString());
     setState((){});
   }
 
-  void unfavoriteTeam(BuildContext context) async {
+  void unfavoriteTeam() async {
     prefs = await SharedPreferences.getInstance();
     List<String> favorites = prefs.getStringList('favorites');
     favorites.remove(this.widget.teamNumber);
@@ -61,12 +62,8 @@ class _TeamSummaryPageState extends State<TeamSummaryPage>
             IconButton(
               icon: isFavorite == true ? Icon(Icons.check) : Icon(Icons.star),
               onPressed: isFavorite == true
-              ? () {
-                unfavoriteTeam(context);
-              }
-              : () {
-                favoriteTeam(context);
-              }
+              ? unfavoriteTeam
+              : favoriteTeam
             )
           ],
           bottom: TabBar(
