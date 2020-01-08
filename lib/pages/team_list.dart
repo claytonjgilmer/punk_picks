@@ -9,12 +9,9 @@ class TeamListPage extends StatefulWidget {
 
 class _TeamListPageState extends State<TeamListPage> {
 
+  @override
   void initState() {
     super.initState();
-  }
-
-  void navigateToTeamSummary(int teamNumber) {
-    router.navigateTo(context, '/team_summary/$teamNumber', transition: TransitionType.nativeModal);
   }
 
   @override

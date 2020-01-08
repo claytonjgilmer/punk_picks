@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
       return new Scaffold(
         appBar: AppBar(title: Text('Home')),
         body: AlertDialog(
-          title: Text('Status'),
+          title: Text('Alert'),
           content: Text('Database is not competition ready.'),
           actions: <Widget>[
             FlatButton(
