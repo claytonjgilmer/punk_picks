@@ -15,25 +15,28 @@ class RmdList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new StreamBuilder<QuerySnapshot>(
-      stream: this.teamNumber == null  
-      ? Firestore.instance
-          .collection('rmd')
-          .where('matchType', isEqualTo: this.matchType)
-          .where('matchNumber', isEqualTo: int.parse(this.matchNumber))
-          .orderBy('matchNumber')
-          .snapshots()
-      : Firestore.instance
-          .collection('rmd')
-          .where('teamNumber', isEqualTo: int.parse(this.teamNumber))
-          .orderBy('matchNumber')
-          .snapshots(),
+      stream: this.teamNumber == null
+          ? Firestore.instance
+              .collection('rmd')
+              .where('matchType', isEqualTo: this.matchType)
+              .where('matchNumber', isEqualTo: int.parse(this.matchNumber))
+              .orderBy('matchNumber')
+              .snapshots()
+          : Firestore.instance
+              .collection('rmd')
+              .where('teamNumber', isEqualTo: int.parse(this.teamNumber))
+              .orderBy('matchNumber')
+              .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircularProgressIndicator(),
+                Icon(
+                  Icons.mail,
+                  size: 48,
+                ),
                 SizedBox(
                   height: 24,
                 ),

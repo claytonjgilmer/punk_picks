@@ -24,7 +24,10 @@ class PitSummary extends StatelessWidget {
             return new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircularProgressIndicator(),
+                Icon(
+                  Icons.flag,
+                  size: 48,
+                ),
                 SizedBox(
                   height: 24,
                 ),
@@ -42,58 +45,45 @@ class PitSummary extends StatelessWidget {
                   Divider(),
                   ListTile(
                     title: Text('Drive train:'),
-                    trailing: Text(
-                      snapshot.data['driveTrain']
-                    ),
+                    trailing: Text(snapshot.data['driveTrain']),
                   ),
                   Divider(),
                   ListTile(
                     title: Text('Drive motors:'),
-                    trailing: Text(
-                      snapshot.data['motor']
-                    ),
+                    trailing: Text(snapshot.data['motor']),
                   ),
                   Divider(),
                   ListTile(
                     title: Text('Programming language:'),
-                    trailing: Text(
-                      snapshot.data['progLang']
-                    ),
+                    trailing: Text(snapshot.data['progLang']),
                   ),
                   Divider(),
                   ListTile(
                     title: Text('Do they have vision:'),
-                    trailing: Text(
-                      snapshot.data['hasVision'].toString()
-                    ),
+                    trailing: Text(snapshot.data['hasVision'].toString()),
                   ),
                   Divider(),
                   ListTile(
                     title: Text('Can they do rotational control:'),
-                    trailing: Text(
-                      snapshot.data['canDoRotationControl'].toString()
-                    ),
+                    trailing:
+                        Text(snapshot.data['canDoRotationControl'].toString()),
                   ),
                   Divider(),
                   ListTile(
                     title: Text('Can they do position control:'),
-                    trailing: Text(
-                      snapshot.data['canDoPositionControl'].toString()
-                    ),
+                    trailing:
+                        Text(snapshot.data['canDoPositionControl'].toString()),
                   ),
                   Divider(),
                   ListTile(
                     title: Text('Can they drive under the trench:'),
-                    trailing: Text(
-                      snapshot.data['canDoPositionControl'].toString()
-                    ),
+                    trailing:
+                        Text(snapshot.data['canDoPositionControl'].toString()),
                   ),
                   Divider(),
                   ListTile(
                     title: Text('Vibe check:'),
-                    trailing: Text(
-                      snapshot.data['teamVibe'].toString()
-                    ),
+                    trailing: Text(snapshot.data['teamVibe'].toString()),
                   ),
                   Divider(),
                   CachedNetworkImage(
@@ -112,7 +102,10 @@ class PitSummary extends StatelessWidget {
               return new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  CircularProgressIndicator(),
+                  Icon(
+                    Icons.flag,
+                    size: 48
+                  ),
                   SizedBox(
                     height: 24,
                   ),

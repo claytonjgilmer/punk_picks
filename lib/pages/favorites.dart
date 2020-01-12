@@ -80,22 +80,22 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ));
     } else {
       return new Scaffold(
-          appBar: AppBar(
-            title: Text('Favorites'),
-          ),
-          body: AlertDialog(
-            title: Text('Alert'),
-            content: Text(
-                'Add favorites by going to the team\'s page and tapping on the star!'),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('GO TO HOME'),
-                onPressed: () {
-                  router.pop(context);
-                },
-              )
-            ],
-          ));
+        appBar: AppBar(
+          title: Text('Favorites'),
+        ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(Icons.star, size: 48),
+            SizedBox(
+              height: 24,
+            ),
+            Text(
+                'Add favorite teams by going to their page and clicking the star.')
+          ],
+        )),
+      );
     }
   }
 }
