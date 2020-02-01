@@ -6,6 +6,7 @@ import 'package:punk_picks/pages/home.dart';
 import 'package:punk_picks/pages/forms/match_scout.dart';
 import 'package:punk_picks/pages/forms/pit_scout.dart';
 import 'package:punk_picks/pages/match_list.dart';
+import 'package:punk_picks/pages/settings.dart';
 import 'package:punk_picks/pages/team_list.dart';
 import 'package:punk_picks/pages/first_pick.dart';
 import 'package:punk_picks/pages/second_pick.dart';
@@ -68,6 +69,12 @@ void defineRoutes() {
     return new FavoritesPage();
   }));
 
+  // Settings page, allows user to set preferences
+  router.define('/settings',
+      handler: new Handler(handlerFunc: (BuildContext context, params) {
+    return new SettingsPage();
+  }));
+
   // Match summary page, gives general match summary (most data from tba)
   router.define('/match_summary/:matchType/:matchNumber', handler: new Handler(
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
@@ -87,9 +94,9 @@ void defineRoutes() {
   }));
 
   // Team summary page, data from tba and punk server calc data
-  router.define('/team_summary/:teamNumber', handler: new Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  router.define('/team_summary/:teamNumber', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     var teamNumber = params['teamNumber'][0];
     return new TeamSummaryPage(teamNumber);
   }));
-
 }

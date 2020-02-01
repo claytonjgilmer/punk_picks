@@ -1,6 +1,4 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:punk_picks/routes.dart';
 import 'package:punk_picks/pages/fragments/team_list_fragment.dart';
 
 class TeamListPage extends StatefulWidget {

@@ -6,6 +6,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:punk_picks/routes.dart';
 
 // This page is _extremely_ hacky at the moment, due to me needing to implement a FirebaseStorage image submission
@@ -19,9 +20,16 @@ class _PitScoutPageState extends State<PitScoutPage> {
   final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
   File _image;
   String imageTaken = 'Image has not been taken.';
+  SharedPreferences preferences;
+  String scoutName;
 
   void initState() {
     super.initState();
+    SharedPreferences.getInstance().then((prefs) {
+      preferences = prefs;
+      scoutName = prefs.getString('scoutName');
+      setState((){});
+    });
   }
 
   Future<File> pickImage() async {
@@ -96,237 +104,240 @@ class _PitScoutPageState extends State<PitScoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Pit Scout Form')),
-      body: Builder(
-        builder: (BuildContext context) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(30),
-              child: Column(
-                children: <Widget>[
-                  FormBuilder(
-                    key: formKey,
-                    autovalidate: false,
-                    initialValue: {
-                      'scoutName': '',
-                      // 'teamNumber' : 0,  see match_scout.dart as to why these are commented out
-                      // 'weight': 0,
-                      'driveTrain': 'tank',
-                      'motor': 'cim',
-                      'progLang': 'java',
-                      'hasVision': false,
-                      'canDoRotationControl': false,
-                      'canDoPositionControl': false,
-                      'canDriveUnderTrench': false,
-                      'teamVibe': 0, 
-                      'imageRef': '',
-                      'imageUrl': '',
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        FormBuilderTextField(
-                          attribute: 'scoutName',
-                          decoration: InputDecoration(labelText: 'Scout Name'),
-                          validators: [
-                            FormBuilderValidators.required(),
-                          ],
-                        ),
-                        FormBuilderTextField(
-                          attribute: 'teamNumber',
-                          decoration: InputDecoration(labelText: 'Team Number'),
-                          keyboardType: TextInputType.number,
-                          valueTransformer: (text) => num.tryParse(text),
-                          validators: [
-                            FormBuilderValidators.required(),
-                            FormBuilderValidators.numeric(),
-                            FormBuilderValidators.maxLength(4),
-                          ],
-                        ),
-                        FormBuilderTextField(
-                          attribute: 'weight',
-                          decoration: InputDecoration(labelText: 'Robot Weight'),
-                          keyboardType: TextInputType.number,
-                          valueTransformer: (text) => num.tryParse(text),
-                          validators: [
-                            FormBuilderValidators.required(),
-                            FormBuilderValidators.numeric(),
-                            FormBuilderValidators.maxLength(3),
-                          ],
-                        ),
-                        FormBuilderDropdown(
-                          attribute: 'driveTrain',
-                          decoration:
-                              InputDecoration(labelText: 'Drivetrain Type'),
-                          items: [
-                            DropdownMenuItem(
-                              value: 'tank',
-                              child: Text('Tank'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'wcd',
-                              child: Text('West Coast'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'mecanum',
-                              child: Text('Mecanum'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'butterfly',
-                              child: Text('Butterfly'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'swerve',
-                              child: Text('Swerve'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'other',
-                              child: Text('Other'),
-                            )
-                          ],
-                        ),
-                        FormBuilderDropdown(
-                          attribute: 'motor',
-                          decoration:
-                              InputDecoration(labelText: 'Drivetrain Motor'),
-                          items: [
-                            DropdownMenuItem(
-                              value: 'cim',
-                              child: Text('CIM'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'minicim',
-                              child: Text('MiniCIM'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'neo',
-                              child: Text('NEO'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'mininem',
-                              child: Text('MiniNEO'),
-                            ),
-                            DropdownMenuItem(
-                              value: '775pro',
-                              child: Text('775 Pro'),
-                            ),
-                            DropdownMenuItem(
-                                value: 'falcon', child: Text('Falcon'))
-                          ],
-                        ),
-                        FormBuilderDropdown(
-                          attribute: 'progLang',
-                          decoration: InputDecoration(
-                              labelText: 'Programming Language'),
-                          items: [
-                            DropdownMenuItem(
-                              value: 'java',
-                              child: Text('Java'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'cpp',
-                              child: Text('C++'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'labview',
-                              child: Text('LabVIEW'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'python',
-                              child: Text('Python'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'other',
-                              child: Text('Other'),
-                            )
-                          ],
-                        ),
-                        FormBuilderCheckbox(
-                          attribute: 'hasVision',
-                          label: Text('Do they have vision?'),
-                        ),
-                        FormBuilderCheckbox(
-                          attribute: 'canDoRotationControl',
-                          label: Text('Can they do rotation control?'),
-                        ),
-                        FormBuilderCheckbox(
-                          attribute: 'canDoPositionControl',
-                          label: Text('Can they do position control?'),
-                        ),
-                        FormBuilderCheckbox(
-                          attribute: 'canDriveUnderTrench',
-                          label: Text('Can they drive under the trench?'),
-                        ),
-                        FormBuilderStepper(
-                          attribute: 'teamVibe',
-                          decoration: InputDecoration(labelText: 'Vibe check?'),
-                          min: 1,
-                          max: 5
-                        ),
-                        FormBuilderCustomField(
-                          attribute: 'imageRef',
-                          validators: [FormBuilderValidators.required()],
-                          formField: FormField(
-                            enabled: true,
-                            builder: (FormFieldState<dynamic> field) {
-                              return new Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  RaisedButton(
-                                    child: Text('Take picture'),
-                                    onPressed: () async {
-                                      File image = await pickImage();
-                                      if (image != null) {
-                                        field.setValue(image
-                                            .path); //for some reason this generates a warning, not sure how else to do this
-                                        setState(() {
-                                          imageTaken = 'Image has been saved.';
-                                          _image = image;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(imageTaken),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                ],
-                              );
-                            },
+    if (scoutName != null)
+      return Scaffold(
+        appBar: AppBar(title: Text('Pit Scout Form')),
+        body: Builder(
+          builder: (BuildContext context) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  children: <Widget>[
+                    FormBuilder(
+                      key: formKey,
+                      autovalidate: false,
+                      initialValue: {
+                        'scoutName': scoutName,
+                        // 'teamNumber' : 0,  see match_scout.dart as to why these are commented out
+                        // 'weight': 0,
+                        'driveTrain': 'tank',
+                        'motor': 'cim',
+                        'progLang': 'java',
+                        'hasVision': false,
+                        'canDoRotationControl': false,
+                        'canDoPositionControl': false,
+                        'canDriveUnderTrench': false,
+                        'teamVibe': 0, 
+                        'imageRef': '',
+                        'imageUrl': '',
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          FormBuilderTextField(
+                            attribute: 'scoutName',
+                            decoration: InputDecoration(labelText: 'Scout Name', hintText: scoutName),
+                            validators: [
+                              FormBuilderValidators.required(),
+                            ],
                           ),
-                        )
-                      ],
+                          FormBuilderTextField(
+                            attribute: 'teamNumber',
+                            decoration: InputDecoration(labelText: 'Team Number'),
+                            keyboardType: TextInputType.number,
+                            valueTransformer: (text) => num.tryParse(text),
+                            validators: [
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.numeric(),
+                              FormBuilderValidators.maxLength(4),
+                            ],
+                          ),
+                          FormBuilderTextField(
+                            attribute: 'weight',
+                            decoration: InputDecoration(labelText: 'Robot Weight'),
+                            keyboardType: TextInputType.number,
+                            valueTransformer: (text) => num.tryParse(text),
+                            validators: [
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.numeric(),
+                              FormBuilderValidators.maxLength(3),
+                            ],
+                          ),
+                          FormBuilderDropdown(
+                            attribute: 'driveTrain',
+                            decoration:
+                                InputDecoration(labelText: 'Drivetrain Type'),
+                            items: [
+                              DropdownMenuItem(
+                                value: 'tank',
+                                child: Text('Tank'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'wcd',
+                                child: Text('West Coast'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'mecanum',
+                                child: Text('Mecanum'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'butterfly',
+                                child: Text('Butterfly'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'swerve',
+                                child: Text('Swerve'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'other',
+                                child: Text('Other'),
+                              )
+                            ],
+                          ),
+                          FormBuilderDropdown(
+                            attribute: 'motor',
+                            decoration:
+                                InputDecoration(labelText: 'Drivetrain Motor'),
+                            items: [
+                              DropdownMenuItem(
+                                value: 'cim',
+                                child: Text('CIM'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'minicim',
+                                child: Text('MiniCIM'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'neo',
+                                child: Text('NEO'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'mininem',
+                                child: Text('MiniNEO'),
+                              ),
+                              DropdownMenuItem(
+                                value: '775pro',
+                                child: Text('775 Pro'),
+                              ),
+                              DropdownMenuItem(
+                                  value: 'falcon', child: Text('Falcon'))
+                            ],
+                          ),
+                          FormBuilderDropdown(
+                            attribute: 'progLang',
+                            decoration: InputDecoration(
+                                labelText: 'Programming Language'),
+                            items: [
+                              DropdownMenuItem(
+                                value: 'java',
+                                child: Text('Java'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'cpp',
+                                child: Text('C++'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'labview',
+                                child: Text('LabVIEW'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'python',
+                                child: Text('Python'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'other',
+                                child: Text('Other'),
+                              )
+                            ],
+                          ),
+                          FormBuilderCheckbox(
+                            attribute: 'hasVision',
+                            label: Text('Do they have vision?'),
+                          ),
+                          FormBuilderCheckbox(
+                            attribute: 'canDoRotationControl',
+                            label: Text('Can they do rotation control?'),
+                          ),
+                          FormBuilderCheckbox(
+                            attribute: 'canDoPositionControl',
+                            label: Text('Can they do position control?'),
+                          ),
+                          FormBuilderCheckbox(
+                            attribute: 'canDriveUnderTrench',
+                            label: Text('Can they drive under the trench?'),
+                          ),
+                          FormBuilderStepper(
+                            attribute: 'teamVibe',
+                            decoration: InputDecoration(labelText: 'Vibe check?'),
+                            min: 1,
+                            max: 5
+                          ),
+                          FormBuilderCustomField(
+                            attribute: 'imageRef',
+                            validators: [FormBuilderValidators.required()],
+                            formField: FormField(
+                              enabled: true,
+                              builder: (FormFieldState<dynamic> field) {
+                                return new Column(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    RaisedButton(
+                                      child: Text('Take picture'),
+                                      onPressed: () async {
+                                        File image = await pickImage();
+                                        if (image != null) {
+                                          field.setValue(image
+                                              .path); //for some reason this generates a warning, not sure how else to do this
+                                          setState(() {
+                                            imageTaken = 'Image has been saved.';
+                                            _image = image;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(imageTaken),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  RaisedButton(
-                    child: Text('Submit'),
-                    onPressed: () async {
-                      formKey.currentState.save();
-                      if (formKey.currentState.validate()) {
-                        String imageUrl = await uploadImage(_image, context);
-                        formKey.currentState
-                            .setAttributeValue('imageUrl', imageUrl);
-                        submitForm(context);
-                      } else {
-                        debugPrint('FORM IS INVALID!');
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              'Make sure your form is correctly filled out!'),
-                        ));
-                      }
-                    },
-                  )
-                ],
+                    RaisedButton(
+                      child: Text('Submit'),
+                      onPressed: () async {
+                        formKey.currentState.save();
+                        if (formKey.currentState.validate()) {
+                          String imageUrl = await uploadImage(_image, context);
+                          formKey.currentState
+                              .setAttributeValue('imageUrl', imageUrl);
+                          submitForm(context);
+                        } else {
+                          debugPrint('FORM IS INVALID!');
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                'Make sure your form is correctly filled out!'),
+                          ));
+                        }
+                      },
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          },
+        ),
+      );
+    else 
+      return Center(child: CircularProgressIndicator(),);
   }
 }

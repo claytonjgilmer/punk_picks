@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   String displayName = '';
   String email = '';
   String photoUrl = '';
+  String scoutName;
   bool compReady;
 
   void initState() {
@@ -34,10 +35,12 @@ class _HomePageState extends State<HomePage> {
     prefs.setBool('compReady', globals.data['compReady']);
     if (prefs.getStringList('favorites') == null)
       prefs.setStringList('favorites', []);
+    if (prefs.getString('scoutName') == null) prefs.setString('scoutName', '');
     debugPrint('FAVORITES: ' + prefs.getStringList('favorites').toString());
     displayName = prefs.getString('displayName');
     email = prefs.getString('email');
     photoUrl = prefs.getString('photoUrl');
+    scoutName = prefs.getString('scoutName');
     compReady = prefs.getBool('compReady');
     setState(() {});
   }
@@ -72,6 +75,11 @@ class _HomePageState extends State<HomePage> {
 
   void navigateToFavoritesPage() {
     router.navigateTo(context, '/favorites',
+        transition: TransitionType.nativeModal);
+  }
+
+  void navigateToSettingsPage() {
+    router.navigateTo(context, '/settings',
         transition: TransitionType.nativeModal);
   }
 
@@ -137,6 +145,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Settings'),
               leading: Icon(Icons.settings),
+              onTap: navigateToSettingsPage,
             ),
             Divider(
               height: 20,
