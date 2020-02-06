@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -78,6 +79,11 @@ class _HomePageState extends State<HomePage> {
         transition: TransitionType.nativeModal);
   }
 
+  void navigateToScoutProPage() {
+    router.navigateTo(context, '/scout_pro',
+        transition: TransitionType.nativeModal);
+  }
+
   void navigateToSettingsPage() {
     router.navigateTo(context, '/settings',
         transition: TransitionType.nativeModal);
@@ -85,6 +91,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     if (compReady == false) {
       return new Scaffold(
         appBar: AppBar(title: Text('Home')),
@@ -140,7 +147,8 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               title: Text('Scout Pro'),
-              leading: Icon(Icons.assessment),
+              leading: Icon(Icons.show_chart),
+              onTap: navigateToScoutProPage,
             ),
             ListTile(
               title: Text('Settings'),

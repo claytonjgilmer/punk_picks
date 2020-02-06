@@ -10,6 +10,7 @@ import 'package:punk_picks/pages/settings.dart';
 import 'package:punk_picks/pages/team_list.dart';
 import 'package:punk_picks/pages/first_pick.dart';
 import 'package:punk_picks/pages/second_pick.dart';
+import 'package:punk_picks/pages/scout_pro.dart';
 import 'package:punk_picks/pages/fragments/match_summary_fragment.dart';
 import 'package:punk_picks/pages/fragments/rmd_summary_fragment.dart';
 import 'package:punk_picks/pages/fragments/team_summary.dart';
@@ -67,6 +68,11 @@ void defineRoutes() {
   router.define('/favorites',
       handler: new Handler(handlerFunc: (BuildContext context, params) {
     return new FavoritesPage();
+  }));
+
+  router.define('/scout_pro',
+      handler: new Handler(handlerFunc: (BuildContext context, params) {
+    return new ScoutProPage();
   }));
 
   // Settings page, allows user to set preferences
