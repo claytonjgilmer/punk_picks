@@ -18,7 +18,7 @@ class _TeamListPageState extends State<TeamListPage> {
       appBar: AppBar(
         title: Text('Teams'),
       ),
-      body: TeamList()
+      body: TeamList('teamNumber', false)
     );
   }
 }

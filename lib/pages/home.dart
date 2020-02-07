@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -74,6 +73,16 @@ class _HomePageState extends State<HomePage> {
         transition: TransitionType.nativeModal);
   }
 
+  void navigateToFirstPickPage() {
+    router.navigateTo(context, '/first_pick',
+        transition: TransitionType.nativeModal);
+  }
+
+  void navigateToSecondPickPage() {
+    router.navigateTo(context, '/second_pick',
+        transition: TransitionType.nativeModal);
+  }
+
   void navigateToFavoritesPage() {
     router.navigateTo(context, '/favorites',
         transition: TransitionType.nativeModal);
@@ -91,7 +100,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     if (compReady == false) {
       return new Scaffold(
         appBar: AppBar(title: Text('Home')),
@@ -135,10 +143,12 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('First Pick'),
               leading: Icon(Icons.looks_one),
+              onTap: navigateToFirstPickPage,
             ),
             ListTile(
               title: Text('Second Pick'),
               leading: Icon(Icons.looks_two),
+              onTap: navigateToSecondPickPage,
             ),
             ListTile(
               title: Text('Favorites'),

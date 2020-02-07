@@ -4,12 +4,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:punk_picks/routes.dart';
 
 class TeamList extends StatelessWidget {
+  final String sortBy;
+  final bool descending;
+  TeamList(this.sortBy, this.descending);
+
   @override
   Widget build(BuildContext context) {
     return new StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection('teams')
-          .orderBy('teamNumber')
+          .orderBy(sortBy, descending: descending)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         switch (snapshot.connectionState) {
@@ -30,6 +34,7 @@ class TeamList extends StatelessWidget {
                         .toString()),
                     subtitle:
                         Text(snapshot.data.documents[index].data['nickname']),
+                    trailing: (this.sortBy == "teamNumber") ? null : Text(this.sortBy + ": " + snapshot.data.documents[index].data[this.sortBy].toString()),
                     onTap: () {
                       int teamNumber =
                           snapshot.data.documents[index].data['teamNumber'];
