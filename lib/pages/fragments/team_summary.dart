@@ -119,9 +119,6 @@ class _TeamSummaryPageState extends State<TeamSummaryPage>
                                         style: TextStyle(
                                             fontSize: 60,
                                             fontWeight: FontWeight.w600)),
-                                    Spacer(),
-                                    Image.asset('assets/diamond.png',
-                                        height: 100, width: 100)
                                   ],
                                 ),
                                 Row(
@@ -144,6 +141,9 @@ class _TeamSummaryPageState extends State<TeamSummaryPage>
                                       width: 12,
                                     ),
                                     Icon(Icons.format_list_numbered),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
                                     Text(
                                       snapshot.data['currRank'].toString(),
                                       style: TextStyle(
@@ -151,7 +151,41 @@ class _TeamSummaryPageState extends State<TeamSummaryPage>
                                       ),
                                     ),
                                   ],
-                                )
+                                ),
+                                Divider(),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
+                                ListTile(
+                                  title: Text(''),
+                                ),
                               ],
                             )),
                       ],

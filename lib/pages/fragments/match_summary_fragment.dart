@@ -198,11 +198,11 @@ class _MatchSummaryPageState extends State<MatchSummaryPage>
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    if (snapshot.data['redEnergyRP'] == true)
+                                    if (snapshot.data['redWheelRP'] == true)
                                       Icon(Icons.power_settings_new),
                                     if (snapshot.data['redClimbRP'] == true)
                                       Icon(Icons.arrow_upward),
-                                    if (snapshot.data['redEnergyRP'] == false &&
+                                    if (snapshot.data['redWheelRP'] == false &&
                                         snapshot.data['redClimbRP'] == false)
                                       SizedBox(
                                         height: 24.0,
@@ -281,7 +281,7 @@ class _MatchSummaryPageState extends State<MatchSummaryPage>
                         SizedBox(
                           height: 24,
                         ),
-                        Divider()
+                        Divider(),
                       ],
                       
                     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:punk_picks/pages/favorites.dart';
+import 'package:punk_picks/pages/fragments/bar_vis_fragment.dart';
 import 'package:punk_picks/pages/login.dart';
 import 'package:punk_picks/pages/home.dart';
 import 'package:punk_picks/pages/forms/match_scout.dart';
@@ -104,5 +105,12 @@ void defineRoutes() {
       handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     var teamNumber = params['teamNumber'][0];
     return new TeamSummaryPage(teamNumber);
+  }));
+
+  // Bar graph visualisation
+  router.define('/bar_graph/:sortBy', handler: new Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+    var sortBy = params['sortBy'][0];
+    return new BarVisualisation(sortBy);
   }));
 }

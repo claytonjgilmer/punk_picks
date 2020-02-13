@@ -98,6 +98,11 @@ class _HomePageState extends State<HomePage> {
         transition: TransitionType.nativeModal);
   }
 
+  void navigateToTest() {
+    router.navigateTo(context, '/bar_graph/avgCellScoredL1',
+        transition: TransitionType.nativeModal);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (compReady == false) {
@@ -164,6 +169,10 @@ class _HomePageState extends State<HomePage> {
               title: Text('Settings'),
               leading: Icon(Icons.settings),
               onTap: navigateToSettingsPage,
+            ),
+            ListTile(
+              title: Text('Test'),
+              onTap: navigateToTest,
             ),
             Divider(
               height: 20,

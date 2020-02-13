@@ -34,7 +34,15 @@ class TeamList extends StatelessWidget {
                         .toString()),
                     subtitle:
                         Text(snapshot.data.documents[index].data['nickname']),
-                    trailing: (this.sortBy == "teamNumber") ? null : Text(this.sortBy + ": " + snapshot.data.documents[index].data[this.sortBy].toString()),
+                    trailing: (this.sortBy == "teamNumber")
+                        ? null
+                        : Text(
+                            this.sortBy +
+                                ": " +
+                                snapshot.data.documents[index].data[this.sortBy]
+                                    .toString(),
+                            style: TextStyle(fontWeight: FontWeight.w400),
+                          ),
                     onTap: () {
                       int teamNumber =
                           snapshot.data.documents[index].data['teamNumber'];
