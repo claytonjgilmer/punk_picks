@@ -14,7 +14,7 @@ import 'package:punk_picks/pages/second_pick.dart';
 import 'package:punk_picks/pages/scout_pro.dart';
 import 'package:punk_picks/pages/fragments/match_summary_fragment.dart';
 import 'package:punk_picks/pages/fragments/rmd_summary_fragment.dart';
-import 'package:punk_picks/pages/fragments/team_summary.dart';
+import 'package:punk_picks/pages/fragments/team_summary_fragment.dart';
 
 final router = Router();
 

@@ -32,6 +32,7 @@ class _BarVisualisationState extends State<BarVisualisation> {
         graphPoints.add(new DataPoint(
             data[this.widget.sortBy], data["teamNumber"].toString()));
       });
+      graphPoints.sort((a, b) => int.parse(a.teamNumber).compareTo(int.parse(b.teamNumber)));
       seriesList = [
         new Series<DataPoint, String>(
             id: 'Series',
@@ -46,7 +47,7 @@ class _BarVisualisationState extends State<BarVisualisation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Bar Graph Visualisation")),
+      appBar: AppBar(title: Text("Bar Graph (" + this.widget.sortBy + ")")),
       body: BarChart(
         seriesList,
         animate: true,

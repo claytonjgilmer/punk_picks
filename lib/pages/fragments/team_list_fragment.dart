@@ -41,7 +41,7 @@ class TeamList extends StatelessWidget {
                                 ": " +
                                 snapshot.data.documents[index].data[this.sortBy]
                                     .toString(),
-                            style: TextStyle(fontWeight: FontWeight.w400),
+                            style: TextStyle(fontWeight: FontWeight.w300),
                           ),
                     onTap: () {
                       int teamNumber =

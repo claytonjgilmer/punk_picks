@@ -1,4 +1,6 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:punk_picks/routes.dart';
 import 'package:punk_picks/pages/fragments/team_list_fragment.dart';
 
 class ScoutProPage extends StatefulWidget {
@@ -14,6 +16,11 @@ class _ScoutProPageState extends State<ScoutProPage> {
     dropdownValue = 'avgDidCrossLineAuto';
   }
 
+  void navigateToBarGraph() {
+    router.navigateTo(context, '/bar_graph/$dropdownValue',
+        transition: TransitionType.nativeModal);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -21,6 +28,7 @@ class _ScoutProPageState extends State<ScoutProPage> {
         actions: <Widget>[
           DropdownButton(
               value: dropdownValue,
+              style: TextStyle(color: Colors.white),
               items: <String>[
                 'avgDidCrossLineAuto',
                 'avgCellScoredL1Auto',
@@ -49,8 +57,9 @@ class _ScoutProPageState extends State<ScoutProPage> {
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value,
-                  style: TextStyle(color: Colors.black),
+                  child: Text(
+                    value,
+                    style: TextStyle(color: Colors.black),
                   ),
                 );
               }).toList(),
@@ -58,7 +67,9 @@ class _ScoutProPageState extends State<ScoutProPage> {
                 setState(() {
                   dropdownValue = val;
                 });
-              })
+              }),
+          IconButton(
+              icon: Icon(Icons.insert_chart), onPressed: navigateToBarGraph),
         ],
       ),
       body: TeamList(dropdownValue, true),

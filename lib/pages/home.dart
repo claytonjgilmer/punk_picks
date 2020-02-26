@@ -170,10 +170,6 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.settings),
               onTap: navigateToSettingsPage,
             ),
-            ListTile(
-              title: Text('Test'),
-              onTap: navigateToTest,
-            ),
             Divider(
               height: 20,
             ),

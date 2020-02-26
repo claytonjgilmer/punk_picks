@@ -95,11 +95,6 @@ class _RmdSummaryPageState extends State<RmdSummaryPage> {
                   ),
                   Divider(),
                   ListTile(
-                    title: Text('Did they drive through the trench:'),
-                    trailing: Text(snapshot.data['didDriveThroughTrench'].toString()),
-                  ),
-                  Divider(),
-                  ListTile(
                     title: Text('Did they park in the rendezvous zone:'),
                     trailing: Text(snapshot.data['didParkEndgame'].toString()),
                   ),

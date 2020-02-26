@@ -204,23 +204,21 @@ class _PitScoutPageState extends State<PitScoutPage> {
                                 child: Text('CIM'),
                               ),
                               DropdownMenuItem(
-                                value: 'minicim',
-                                child: Text('MiniCIM'),
-                              ),
-                              DropdownMenuItem(
                                 value: 'neo',
                                 child: Text('NEO'),
                               ),
                               DropdownMenuItem(
-                                value: 'mininem',
-                                child: Text('MiniNEO'),
+                                value: 'falcon',
+                                child: Text('Falcon'),
                               ),
                               DropdownMenuItem(
                                 value: '775pro',
                                 child: Text('775 Pro'),
                               ),
                               DropdownMenuItem(
-                                  value: 'falcon', child: Text('Falcon'))
+                                value: 'Other',
+                                child: Text('Other'),
+                              )     
                             ],
                           ),
                           FormBuilderDropdown(
@@ -252,7 +250,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
                           ),
                           FormBuilderCheckbox(
                             attribute: 'hasVision',
-                            label: Text('Do they have vision?'),
+                            label: Text('Do they have vision targeting?'),
                           ),
                           FormBuilderCheckbox(
                             attribute: 'canDoRotationControl',
