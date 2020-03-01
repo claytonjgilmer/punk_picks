@@ -109,6 +109,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                         'cellScoredL3': 0,
                         'didRotationControl': false,
                         'didPositionControl': false,
+                        'didPlayDefense': false,
                         'didParkEndgame': false,
                         'didClimbEndgame': false,
                         'didBalanceEndgame': false,
@@ -237,6 +238,11 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                             attribute: 'didPositionControl',
                             label: Text(
                                 'Did they successfully execute position control?'),
+                          ),
+                          FormBuilderCheckbox(
+                            attribute: 'didPlayDefense',
+                            label: Text(
+                                'Did they play defense?'),
                           ),
                           SizedBox(
                             height: 64,

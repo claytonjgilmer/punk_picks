@@ -228,6 +228,14 @@ class _TeamSummaryPageState extends State<TeamSummaryPage>
                                 Divider(),
                                 ListTile(
                                   title: Text(
+                                      'Did they play defense:'),
+                                  trailing: Text(snapshot
+                                      .data['avgDidPlayDefense']
+                                      .toString()),
+                                ),
+                                Divider(),
+                                ListTile(
+                                  title: Text(
                                       'Did they park in the rendezvous zone:'),
                                   trailing: Text(snapshot
                                       .data['avgDidParkEndgame']
@@ -323,6 +331,14 @@ class _TeamSummaryPageState extends State<TeamSummaryPage>
                                       'Did they successfully execute position control:'),
                                   trailing: Text(snapshot
                                       .data['stdDidPositionControl']
+                                      .toString()),
+                                ),
+                                Divider(),
+                                ListTile(
+                                  title: Text(
+                                      'Did they play defense:'),
+                                  trailing: Text(snapshot
+                                      .data['stdDidPlayDefense']
                                       .toString()),
                                 ),
                                 Divider(),

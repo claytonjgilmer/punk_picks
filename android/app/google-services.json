@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "217178165036-vvp7r8sao9ni48274unbcrph942clrom.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.lnstempunks.punkpicks",
+            "certificate_hash": "177546a4ac7656a59992f3ad8abc300320ae8058"
+          }
+        },
+        {
           "client_id": "217178165036-tl35tguhu80irnghjmjpg72j96msoafg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

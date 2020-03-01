@@ -39,6 +39,7 @@ class _ScoutProPageState extends State<ScoutProPage> {
                 'avgCellScoredL3',
                 'avgDidRotationControl',
                 'avgDidPositionControl',
+                'avgDidPlayDefense',
                 'avgDidParkEndgame',
                 'avgDidClimbEndgame',
                 'avgDidBalanceEndgame',
@@ -51,6 +52,7 @@ class _ScoutProPageState extends State<ScoutProPage> {
                 'stdCellScoredL3',
                 'stdDidRotationControl',
                 'stdDidPositionControl',
+                'stdDidPlayDefense',
                 'stdDidParkEndgame',
                 'stdDidClimbEndgame',
                 'stdDidBalanceEndgame'

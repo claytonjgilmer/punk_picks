@@ -93,6 +93,10 @@ class _RmdSummaryPageState extends State<RmdSummaryPage> {
                     title: Text('Did they successfully execute position control:'),
                     trailing: Text(snapshot.data['didPositionControl'].toString()),
                   ),
+                  ListTile(
+                    title: Text('Did they play defense:'),
+                    trailing: Text(snapshot.data['didPlayDefense'].toString()),
+                  ),
                   Divider(),
                   ListTile(
                     title: Text('Did they park in the rendezvous zone:'),

@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
         title: Text('Home'),
       ),
       drawer: Drawer(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text(displayName),
