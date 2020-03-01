@@ -261,11 +261,11 @@ class _MatchSummaryPageState extends State<MatchSummaryPage>
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    if (snapshot.data['blueEnergyRP'] == true)
+                                    if (snapshot.data['blueWheelRP'] == true)
                                       Icon(Icons.power_settings_new),
                                     if (snapshot.data['blueClimbRP'] == true)
                                       Icon(Icons.arrow_upward),
-                                    if (snapshot.data['blueEnergyRP'] ==
+                                    if (snapshot.data['blueWheelRP'] ==
                                             false &&
                                         snapshot.data['blueClimbRP'] == false)
                                       SizedBox(
