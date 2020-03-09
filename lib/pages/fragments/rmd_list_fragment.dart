@@ -15,6 +15,7 @@ class RmdList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new StreamBuilder<QuerySnapshot>(
+      // TODO: figure out issue with parsing match number
       stream: this.teamNumber == null
           ? Firestore.instance
               .collection('rmd')

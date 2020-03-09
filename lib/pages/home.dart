@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (compReady == false) {
+    if (compReady == false && kReleaseMode == true) {
       return new Scaffold(
         appBar: AppBar(title: Text('Home')),
         body: AlertDialog(
@@ -144,16 +145,6 @@ class _HomePageState extends State<HomePage> {
               title: Text('Teams'),
               leading: Icon(Icons.people),
               onTap: navigateToTeamList,
-            ),
-            ListTile(
-              title: Text('First Pick'),
-              leading: Icon(Icons.looks_one),
-              onTap: navigateToFirstPickPage,
-            ),
-            ListTile(
-              title: Text('Second Pick'),
-              leading: Icon(Icons.looks_two),
-              onTap: navigateToSecondPickPage,
             ),
             ListTile(
               title: Text('Favorites'),

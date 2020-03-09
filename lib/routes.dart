@@ -9,8 +9,6 @@ import 'package:punk_picks/pages/forms/pit_scout.dart';
 import 'package:punk_picks/pages/match_list.dart';
 import 'package:punk_picks/pages/settings.dart';
 import 'package:punk_picks/pages/team_list.dart';
-import 'package:punk_picks/pages/first_pick.dart';
-import 'package:punk_picks/pages/second_pick.dart';
 import 'package:punk_picks/pages/scout_pro.dart';
 import 'package:punk_picks/pages/fragments/match_summary_fragment.dart';
 import 'package:punk_picks/pages/fragments/rmd_summary_fragment.dart';
@@ -51,18 +49,6 @@ void defineRoutes() {
   router.define('/team_list',
       handler: new Handler(handlerFunc: (BuildContext context, params) {
     return new TeamListPage();
-  }));
-
-  // First pick list, contains list of all teams and sorts by first-pickability
-  router.define('/first_pick',
-      handler: new Handler(handlerFunc: (BuildContext context, params) {
-    return new FirstPickPage();
-  }));
-
-  // Second pick list, contains list of all teams and sorts by second-pickability
-  router.define('/second_pick',
-      handler: new Handler(handlerFunc: (BuildContext context, params) {
-    return new SecondPickPage();
   }));
 
   // Favorites page, displays user's saved teams

@@ -28,7 +28,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
     SharedPreferences.getInstance().then((prefs) {
       preferences = prefs;
       scoutName = prefs.getString('scoutName');
-      setState((){});
+      setState(() {});
     });
   }
 
@@ -128,22 +128,25 @@ class _PitScoutPageState extends State<PitScoutPage> {
                         'canDoRotationControl': false,
                         'canDoPositionControl': false,
                         'canDriveUnderTrench': false,
-                        'teamVibe': 0, 
+                        'teamVibe': 0,
                         'imageRef': '',
                         'imageUrl': '',
+                        'scoutNotes': ''
                       },
                       child: Column(
                         children: <Widget>[
                           FormBuilderTextField(
                             attribute: 'scoutName',
-                            decoration: InputDecoration(labelText: 'Scout Name', hintText: scoutName),
+                            decoration: InputDecoration(
+                                labelText: 'Scout Name', hintText: scoutName),
                             validators: [
                               FormBuilderValidators.required(),
                             ],
                           ),
                           FormBuilderTextField(
                             attribute: 'teamNumber',
-                            decoration: InputDecoration(labelText: 'Team Number'),
+                            decoration:
+                                InputDecoration(labelText: 'Team Number'),
                             keyboardType: TextInputType.number,
                             valueTransformer: (text) => num.tryParse(text),
                             validators: [
@@ -154,7 +157,8 @@ class _PitScoutPageState extends State<PitScoutPage> {
                           ),
                           FormBuilderTextField(
                             attribute: 'weight',
-                            decoration: InputDecoration(labelText: 'Robot Weight'),
+                            decoration:
+                                InputDecoration(labelText: 'Robot Weight'),
                             keyboardType: TextInputType.number,
                             valueTransformer: (text) => num.tryParse(text),
                             validators: [
@@ -218,7 +222,7 @@ class _PitScoutPageState extends State<PitScoutPage> {
                               DropdownMenuItem(
                                 value: 'Other',
                                 child: Text('Other'),
-                              )     
+                              )
                             ],
                           ),
                           FormBuilderDropdown(
@@ -253,23 +257,15 @@ class _PitScoutPageState extends State<PitScoutPage> {
                             label: Text('Do they have vision targeting?'),
                           ),
                           FormBuilderCheckbox(
-                            attribute: 'canDoRotationControl',
-                            label: Text('Can they do rotation control?'),
-                          ),
-                          FormBuilderCheckbox(
-                            attribute: 'canDoPositionControl',
-                            label: Text('Can they do position control?'),
-                          ),
-                          FormBuilderCheckbox(
                             attribute: 'canDriveUnderTrench',
                             label: Text('Can they drive under the trench?'),
                           ),
                           FormBuilderStepper(
-                            attribute: 'teamVibe',
-                            decoration: InputDecoration(labelText: 'Vibe check?'),
-                            min: 1,
-                            max: 5
-                          ),
+                              attribute: 'teamVibe',
+                              decoration:
+                                  InputDecoration(labelText: 'Vibe check?'),
+                              min: 1,
+                              max: 5),
                           FormBuilderCustomField(
                             attribute: 'imageRef',
                             validators: [FormBuilderValidators.required()],
@@ -289,7 +285,8 @@ class _PitScoutPageState extends State<PitScoutPage> {
                                           field.setValue(image
                                               .path); //for some reason this generates a warning, not sure how else to do this
                                           setState(() {
-                                            imageTaken = 'Image has been saved.';
+                                            imageTaken =
+                                                'Image has been saved.';
                                             _image = image;
                                           });
                                         }
@@ -306,6 +303,11 @@ class _PitScoutPageState extends State<PitScoutPage> {
                                 );
                               },
                             ),
+                          ),
+                          FormBuilderTextField(
+                            attribute: 'scoutNotes',
+                            decoration:
+                                InputDecoration(labelText: 'Scout notes'),
                           )
                         ],
                       ),
@@ -335,7 +337,9 @@ class _PitScoutPageState extends State<PitScoutPage> {
           },
         ),
       );
-    else 
-      return Center(child: CircularProgressIndicator(),);
+    else
+      return Center(
+        child: CircularProgressIndicator(),
+      );
   }
 }

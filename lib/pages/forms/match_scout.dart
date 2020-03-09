@@ -21,7 +21,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
     SharedPreferences.getInstance().then((prefs) {
       preferences = prefs;
       scoutName = prefs.getString('scoutName');
-      setState((){});
+      setState(() {});
     });
   }
 
@@ -104,9 +104,11 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                         'cellScoredL1Auto': 0,
                         'cellScoredL2Auto': 0,
                         'cellScoredL3Auto': 0,
+                        'cellMissedAuto': 0,
                         'cellScoredL1': 0,
                         'cellScoredL2': 0,
                         'cellScoredL3': 0,
+                        'cellMissed': 0,
                         'didRotationControl': false,
                         'didPositionControl': false,
                         'didPlayDefense': false,
@@ -205,6 +207,11 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                                   labelText:
                                       'Cells scored on the high level in the circle.'),
                               min: 0),
+                          FormBuilderStepper(
+                              attribute: 'cellMissedAuto',
+                              decoration:
+                                  InputDecoration(labelText: 'Cells missed.'),
+                              min: 0),
                           SizedBox(
                             height: 64,
                           ),
@@ -229,6 +236,12 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                                   labelText:
                                       'Cells scored on the high level in the circle.'),
                               min: 0),
+                          FormBuilderStepper(
+                            attribute: 'cellMissed',
+                            decoration:
+                                InputDecoration(labelText: 'Cells missed.'),
+                            min: 0,
+                          ),
                           FormBuilderCheckbox(
                             attribute: 'didRotationControl',
                             label: Text(
@@ -241,8 +254,7 @@ class _MatchScoutPageState extends State<MatchScoutPage> {
                           ),
                           FormBuilderCheckbox(
                             attribute: 'didPlayDefense',
-                            label: Text(
-                                'Did they play defense?'),
+                            label: Text('Did they play defense?'),
                           ),
                           SizedBox(
                             height: 64,
